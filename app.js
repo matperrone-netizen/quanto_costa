@@ -17,7 +17,10 @@ let lastShareText = '';
 let staticOffers = [];
 const offersReady = fetch('offers.json', { cache: 'no-cache' })
   .then(response => response.ok ? response.json() : [])
-  .then(catalog => { staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []); })
+  .then(catalog => {
+    staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []);
+    populateModelSuggestions();
+  })
   .catch(() => { staticOffers = []; });
 
 function value(id) {
@@ -33,6 +36,15 @@ function offerSearchTerms(offer) {
   return [...(offer.aliases || []), `${offer.brand || ''} ${offer.model || ''}`, ...(offer.match || [])]
     .map(normalizeCatalogText)
     .filter(Boolean);
+}
+function populateModelSuggestions() {
+  const list = document.getElementById('catalogModels');
+  const models = [...new Set(staticOffers.map(offer => `${offer.brand || ''} ${offer.model || ''}`.trim()).filter(Boolean))].sort();
+  list.replaceChildren(...models.map(model => {
+    const option = document.createElement('option');
+    option.value = model;
+    return option;
+  }));
 }
 function findStaticOffers(carModel, contractKm = null) {
   const normalized = normalizeCatalogText(carModel);
@@ -282,3 +294,4 @@ document.getElementById('toggleDetails').addEventListener('click', () => documen
 document.getElementById('shareResult').addEventListener('click', shareResult);
 updateProposalVisibility();
 updateSecondProposalVisibility();
+toggleOfferB();
