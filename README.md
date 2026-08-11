@@ -19,6 +19,12 @@ Prototipo statico di **Quanto costa veramente?**: un calcolatore italiano che ai
 
 Non richiede build, database o dipendenze: basta pubblicare questi file come sito statico.
 
+## Aggiornare le offerte senza database
+
+Il catalogo è nel file `offers.json`, caricato dal browser. Ogni offerta conserva marca/modello (`match`), rata, durata, versamento iniziale, eventuale maxi rata, km e servizi nelle `conditions`, fonte, URL e data di verifica. Se esistono sconti o rottamazione, vanno dichiarati esplicitamente nelle condizioni: non devono sembrare disponibili per tutti.
+
+Il flusso MVP è volutamente semplice: una revisione mensile delle fonti autorizzate, aggiornamento di `offers.json`, poi pubblicazione con `publish-seo.ps1`. Il sito resta statico, veloce e senza costi di database.
+
 ## Sviluppi previsti
 
 1. collegare il repository a Cloudflare Pages;

@@ -14,17 +14,11 @@ let comparisonOffers = null;
 let comparisonNames = { a: 'Offerta A', b: 'Offerta B' };
 let lastShareText = '';
 
-// Primo catalogo curato: dati statici, con fonte e data di verifica.
-const staticOffers = [
-  {
-    match: ['peugeot', '2008'],
-    title: 'Peugeot 2008 Hybrid 110 e-DCS6 Style — noleggio',
-    type: 'rental', payment: 269, months: 36, downPayment: 5000, finalPayment: 0,
-    included: [], endChoice: 'return', profile: { fuel: 'hybrid', segment: 'suv' },
-    sourceName: 'Quattroruote', sourceUrl: 'https://www.quattroruote.it/noleggio-lungo-termine/peugeot/2008-e-2008/2008-hybrid-110-e-dcs6-style-156591202510.html',
-    checkedAt: '10 agosto 2026', conditions: '36 mesi, 10.000 km/anno. Servizi inclusi da verificare con il fornitore.'
-  }
-];
+let staticOffers = [];
+const offersReady = fetch('offers.json', { cache: 'no-cache' })
+  .then(response => response.ok ? response.json() : [])
+  .then(offers => { staticOffers = Array.isArray(offers) ? offers : []; })
+  .catch(() => { staticOffers = []; });
 
 function value(id) {
   const raw = document.getElementById(id).value;
@@ -149,7 +143,8 @@ function showOfferDetails(which) {
   document.querySelectorAll('.compare-card').forEach(card => card.classList.toggle('active', card.dataset.offer === which));
 }
 
-function calculate() {
+async function calculate() {
+  await offersReady;
   document.querySelectorAll('[data-money-input]').forEach(formatThousands);
   const profile = {
     km: value('annualKm'), fuel: document.getElementById('fuel').value,
