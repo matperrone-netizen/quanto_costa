@@ -17,7 +17,7 @@ let lastShareText = '';
 let staticOffers = [];
 const offersReady = fetch('offers.json', { cache: 'no-cache' })
   .then(response => response.ok ? response.json() : [])
-  .then(offers => { staticOffers = Array.isArray(offers) ? offers : []; })
+  .then(catalog => { staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []); })
   .catch(() => { staticOffers = []; });
 
 function value(id) {
@@ -26,9 +26,27 @@ function value(id) {
 }
 function proposalType() { return document.querySelector('input[name="proposalType"]:checked').value; }
 function selectedCosts(selector) { return [...document.querySelectorAll(`${selector} input:checked`)].map(input => input.value); }
-function findStaticOffer(carModel) {
-  const normalized = carModel.toLowerCase();
-  return staticOffers.find(offer => offer.match.every(term => normalized.includes(term))) || null;
+function normalizeCatalogText(value) {
+  return String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+function offerSearchTerms(offer) {
+  return [...(offer.aliases || []), `${offer.brand || ''} ${offer.model || ''}`, ...(offer.match || [])]
+    .map(normalizeCatalogText)
+    .filter(Boolean);
+}
+function findStaticOffers(carModel, contractKm = null) {
+  const normalized = normalizeCatalogText(carModel);
+  if (!normalized) return [];
+  return staticOffers
+    .filter(offer => (!contractKm || offer.contractKm === contractKm) && offerSearchTerms(offer).some(term => normalized.includes(term)))
+    .sort((first, second) => {
+      const firstScore = Math.max(...offerSearchTerms(first).filter(term => normalized.includes(term)).map(term => term.length));
+      const secondScore = Math.max(...offerSearchTerms(second).filter(term => normalized.includes(term)).map(term => term.length));
+      return secondScore - firstScore || String(second.checkedAtISO).localeCompare(String(first.checkedAtISO));
+    });
+}
+function findStaticOffer(carModel, contractKm = null) {
+  return findStaticOffers(carModel, contractKm)[0] || null;
 }
 
 function estimateOffer({ type, payment, months, downPayment, finalPayment, included, endChoice = 'undecided' }, profile) {
@@ -153,7 +171,8 @@ async function calculate() {
   const carModel = document.getElementById('carModel').value.trim();
   const offer = getOfferA(profile);
   const hasManualOfferB = document.getElementById('hasOfferB').checked;
-  const staticOffer = hasManualOfferB ? null : findStaticOffer(carModel);
+  const catalogOfferForModel = hasManualOfferB ? null : findStaticOffer(carModel);
+  const staticOffer = hasManualOfferB ? null : findStaticOffer(carModel, profile.km);
   const offerB = hasManualOfferB ? getOfferB(profile) : staticOffer ? estimateOffer(staticOffer, { ...profile, ...staticOffer.profile }) : null;
   document.getElementById('quotedPayment').textContent = money(offer.payment);
   document.getElementById('realMonthly').textContent = money(offer.monthlyTotal);
@@ -194,7 +213,7 @@ async function calculate() {
     document.querySelectorAll('.compare-card').forEach(card => card.classList.remove('active'));
     renderComparison(offer, offerB, staticOffer);
   } else if (!hasManualOfferB) {
-    document.getElementById('noOfferBMessage').textContent = carModel ? `Non abbiamo ancora un’alternativa verificata per “${carModel}” nel catalogo statico. Non mostriamo un preventivo inventato.` : 'Inserisci marca e modello per cercare un’alternativa nel catalogo statico.';
+    document.getElementById('noOfferBMessage').textContent = catalogOfferForModel ? `Abbiamo un’offerta verificata per “${carModel}”, ma con ${catalogOfferForModel.contractKm.toLocaleString('it-IT')} km/anno. Seleziona lo stesso chilometraggio per confrontarla correttamente.` : carModel ? `Non abbiamo ancora un’alternativa verificata per “${carModel}” nel catalogo statico. Non mostriamo un preventivo inventato.` : 'Inserisci marca e modello per cercare un’alternativa nel catalogo statico.';
   }
   const results = document.getElementById('results');
   results.classList.remove('hidden');

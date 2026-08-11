@@ -1,5 +1,11 @@
-[
+{
+  "updatedAt": "2026-08-11",
+  "offers": [
   {
+    "id": "peugeot-2008-hybrid-style-nlt-36-10000",
+    "brand": "Peugeot",
+    "model": "2008",
+    "aliases": ["peugeot 2008", "2008"],
     "match": ["peugeot", "2008"],
     "title": "Peugeot 2008 Hybrid 110 e-DCS6 Style — noleggio",
     "type": "rental",
@@ -7,6 +13,7 @@
     "months": 36,
     "downPayment": 5000,
     "finalPayment": 0,
+    "contractKm": 10000,
     "included": [],
     "endChoice": "return",
     "profile": { "fuel": "hybrid", "segment": "suv" },
@@ -15,5 +22,28 @@
     "checkedAtISO": "2026-08-10",
     "checkedAt": "10 agosto 2026",
     "conditions": "36 mesi, 10.000 km/anno. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "toyota-yaris-hybrid-active-nlt-36-5000",
+    "brand": "Toyota",
+    "model": "Yaris",
+    "aliases": ["toyota yaris", "yaris"],
+    "match": ["toyota", "yaris"],
+    "title": "Toyota Yaris 1.5 Hybrid 5 porte Active — noleggio",
+    "type": "rental",
+    "payment": 199,
+    "months": 36,
+    "downPayment": 5000,
+    "finalPayment": 0,
+    "contractKm": 5000,
+    "included": [],
+    "endChoice": "return",
+    "profile": { "fuel": "hybrid", "segment": "compact" },
+    "sourceName": "Quattroruote",
+    "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/toyota/yaris/yaris-15-hybrid-5p-active-136551202310.html",
+    "checkedAtISO": "2026-08-11",
+    "checkedAt": "11 agosto 2026",
+    "conditions": "36 mesi, 5.000 km/anno, anticipo €5.000 IVA inclusa. Pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
   }
-]
+  ]
+}
