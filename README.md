@@ -21,9 +21,11 @@ Non richiede build, database o dipendenze: basta pubblicare questi file come sit
 
 ## Aggiornare le offerte senza database
 
-Il catalogo è nel file `offers.json`, caricato dal browser. Ogni offerta conserva marca/modello (`match`), rata, durata, versamento iniziale, eventuale maxi rata, km e servizi nelle `conditions`, fonte, URL e data di verifica. Se esistono sconti o rottamazione, vanno dichiarati esplicitamente nelle condizioni: non devono sembrare disponibili per tutti.
+Il catalogo è nel file `offers.json`, caricato dal browser. Ogni offerta conserva marca/modello (`match`), rata, durata, versamento iniziale, eventuale maxi rata, km e servizi nelle `conditions`, fonte, URL, data leggibile (`checkedAt`) e data tecnica (`checkedAtISO`). Se esistono sconti o rottamazione, vanno dichiarati esplicitamente nelle condizioni: non devono sembrare disponibili per tutti.
 
 Il flusso MVP è volutamente semplice: una revisione mensile delle fonti autorizzate, aggiornamento di `offers.json`, poi pubblicazione con `publish-seo.ps1`. Il sito resta statico, veloce e senza costi di database.
+
+Prima della pubblicazione, `catalog-check.ps1` controlla automaticamente i campi obbligatori e segnala offerte non verificate da oltre 45 giorni. Per il primo catalogo conviene usare poche offerte complete provenienti da pagine ufficiali o fonti che ne consentono la consultazione, non uno scraping indiscriminato di siti terzi.
 
 ## Sviluppi previsti
 
