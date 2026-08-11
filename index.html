@@ -26,14 +26,20 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Costo Vero",
-        "url": "https://costo-vero.it/",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Web",
-        "inLanguage": "it-IT",
-        "isAccessibleForFree": true,
-        "description": "Calcolatore gratuito del costo reale di un'auto: finanziamento, noleggio e costi di utilizzo."
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "Costo Vero",
+            "url": "https://costo-vero.it/",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "it-IT",
+            "isAccessibleForFree": true,
+            "description": "Calcolatore gratuito del costo reale di un'auto: finanziamento, noleggio e costi di utilizzo."
+          },
+          { "@type": "WebSite", "name": "Costo Vero", "url": "https://costo-vero.it/", "inLanguage": "it-IT" },
+          { "@type": "Organization", "name": "Costo Vero", "url": "https://costo-vero.it/" }
+        ]
       }
     </script>
   </head>
