@@ -12,6 +12,7 @@ const energyPrice = { petrol: 1.82, diesel: 1.72, hybrid: 1.78, electric: 0.33 }
 const label = { insurance: 'Assicurazione', tax: 'Bollo', maintenance: 'Manutenzione', tires: 'Gomme', fuel: 'Carburante / ricarica', parking: 'Parcheggio', payment: 'Rata o canone' };
 let comparisonOffers = null;
 let comparisonNames = { a: 'Offerta A', b: 'Offerta B' };
+let lastShareText = '';
 
 // Primo catalogo curato: dati statici, con fonte e data di verifica.
 const staticOffers = [
@@ -172,6 +173,7 @@ function calculate() {
   const energyName = offer.fuel === 'electric' ? 'ricarica' : 'carburante';
   const energyPrice = `${offer.fuelPrice.toFixed(2).replace('.', ',')} €`;
   document.getElementById('fuelFormula').textContent = `Calcolo ${energyName}: ${offer.km.toLocaleString('it-IT')} km/anno × ${String(offer.fuelConsumption).replace('.', ',')} ${unit}/100 km × ${energyPrice}/${unit}, diviso 12 = circa ${money(offer.fuelMonthly)}/mese.`;
+  lastShareText = `${subject || 'Per la mia auto, '}la stima di Costo Vero è ${money(offer.monthlyTotal)} al mese per guidarla. La rata è ${money(offer.payment)}; anticipo e maxi rata restano separati. Fai la tua stima:`;
   const decision = document.getElementById('decisionNote');
   if (offer.type === 'finance') {
     const finalText = offer.finalPayment ? ` Alla scadenza c’è una maxi rata di <strong>${money(offer.finalPayment)}</strong>.` : '';
@@ -228,6 +230,27 @@ function toggleOfferB() {
   document.getElementById('noOfferBMessage').classList.toggle('hidden', show);
 }
 
+async function shareResult() {
+  if (!lastShareText) return;
+  const button = document.getElementById('shareResult');
+  const shareData = { title: 'La mia stima auto | Costo Vero', text: lastShareText, url: window.location.href };
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+    await navigator.clipboard.writeText(`${lastShareText} ${window.location.href}`);
+    const original = button.innerHTML;
+    button.textContent = 'Testo e link copiati';
+    window.setTimeout(() => { button.innerHTML = original; }, 2200);
+  } catch (error) {
+    if (error.name !== 'AbortError') {
+      button.textContent = 'Non riesco a condividere ora';
+      window.setTimeout(() => { button.innerHTML = 'Condividi questa stima <span aria-hidden="true">↗</span>'; }, 2200);
+    }
+  }
+}
+
 document.querySelectorAll('input[name="proposalType"]').forEach(input => input.addEventListener('change', updateProposalVisibility));
 document.getElementById('proposalTypeB').addEventListener('change', updateSecondProposalVisibility);
 ['downPayment', 'finalPayment', 'downPaymentB', 'finalPaymentB'].forEach(id => {
@@ -242,5 +265,6 @@ document.getElementById('hasOfferB').addEventListener('change', toggleOfferB);
 document.querySelectorAll('.compare-card').forEach(card => card.addEventListener('click', () => showOfferDetails(card.dataset.offer)));
 document.getElementById('calculate').addEventListener('click', calculate);
 document.getElementById('toggleDetails').addEventListener('click', () => document.querySelector('.second-step').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+document.getElementById('shareResult').addEventListener('click', shareResult);
 updateProposalVisibility();
 updateSecondProposalVisibility();
