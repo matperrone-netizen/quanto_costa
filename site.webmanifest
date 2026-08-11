@@ -1,0 +1,9 @@
+{
+  "name": "Costo Vero",
+  "short_name": "Costo Vero",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#4f46e5",
+  "lang": "it-IT"
+}
