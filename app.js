@@ -35,7 +35,7 @@ function normalizeCatalogText(value) {
 function offerSearchTerms(offer) {
   return [...(offer.aliases || []), `${offer.brand || ''} ${offer.model || ''}`, ...(offer.match || [])]
     .map(normalizeCatalogText)
-    .filter(Boolean);
+    .filter(term => term.length > 1);
 }
 function populateModelSuggestions() {
   const list = document.getElementById('catalogModels');
