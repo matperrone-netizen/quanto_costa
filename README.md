@@ -27,6 +27,10 @@ Il flusso MVP è volutamente semplice: una revisione mensile delle fonti autoriz
 
 Prima della pubblicazione, `catalog-check.ps1` controlla automaticamente i campi obbligatori e segnala offerte non verificate da oltre 45 giorni. Per il primo catalogo conviene usare poche offerte complete provenienti da pagine ufficiali o fonti che ne consentono la consultazione, non uno scraping indiscriminato di siti terzi.
 
+## Report quotidiano
+
+Il workflow `.github/workflows/daily-report.yml` invia alle 20:00 ora italiana un report delle metriche aggregate Cloudflare. I secret `GMAIL_APP_PASSWORD`, `CLOUDFLARE_ANALYTICS_TOKEN` e `CLOUDFLARE_ZONE_ID` vanno inseriti solo nella sezione GitHub Secrets: non devono mai finire nei file del repository.
+
 ## Sviluppi previsti
 
 1. collegare il repository a Cloudflare Pages;
