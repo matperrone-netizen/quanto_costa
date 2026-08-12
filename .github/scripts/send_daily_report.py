@@ -3,8 +3,9 @@ import os
 import smtplib
 import ssl
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 
@@ -76,6 +77,27 @@ def activity_counts(token, account_id):
     return counts
 
 
+def catalog_status():
+    catalog_path = Path(__file__).resolve().parents[2] / "offers.json"
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    offers = catalog.get("offers", [])
+    today = date.today()
+    stale, invalid, checked_dates = [], [], []
+    for offer in offers:
+        label = offer.get("title") or offer.get("id") or "Offerta senza nome"
+        if not offer.get("sourceUrl", "").startswith("https://"):
+            invalid.append(label)
+        try:
+            checked_date = date.fromisoformat(offer.get("checkedAtISO", ""))
+            checked_dates.append(checked_date)
+            if (today - checked_date).days > 35:
+                stale.append(label)
+        except ValueError:
+            invalid.append(label)
+    oldest = min(checked_dates).strftime("%d/%m/%Y") if checked_dates else "non disponibile"
+    return {"total": len(offers), "oldest": oldest, "stale": stale, "invalid": invalid}
+
+
 def main():
     token = required("CLOUDFLARE_API_TOKEN")
     zone_id = required("CLOUDFLARE_ZONE_ID")
@@ -83,6 +105,7 @@ def main():
     recipient = required("REPORT_EMAIL")
     visits, requests = cloudflare_visits(token, zone_id)
     activities = activity_counts(token, os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip())
+    catalog = catalog_status()
     now = datetime.now(ZoneInfo("Europe/Rome"))
     subject = f"Costo Vero — report del {now:%d/%m/%Y}"
     activity_section = "Tracciamento attività non ancora configurato."
@@ -92,6 +115,10 @@ def main():
 - Confronti: {activities['comparison']}
 - Condivisioni: {activities['share']}
 - Checklist copiate: {activities['checklist']}"""
+    catalog_section = f"Catalogo offerte: {catalog['total']} offerte · verifica più vecchia: {catalog['oldest']}."
+    if catalog["stale"] or catalog["invalid"]:
+        needs_review = catalog["stale"] + catalog["invalid"]
+        catalog_section = f"ATTENZIONE: catalogo da aggiornare ({len(needs_review)} offerte).\n- " + "\n- ".join(needs_review)
     body = f"""Ciao,
 
 Report Costo Vero — ultime 24 ore circa
@@ -100,6 +127,8 @@ Visite Cloudflare: {visits}
 Richieste HTTP: {requests}
 
 {activity_section}
+
+{catalog_section}
 
 Il sito è online su https://costo-vero.it.
 """
