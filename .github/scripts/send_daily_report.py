@@ -52,16 +52,17 @@ def cloudflare_visits(token, zone_id):
 def activity_counts(token, account_id):
     if not account_id:
         return None
-    payload = json.dumps({"query": """
+    payload = """
       SELECT blob1 AS event, COUNT() AS total
       FROM costovero_activity
       WHERE timestamp > NOW() - INTERVAL '1' DAY
       GROUP BY event
-    """}).encode()
+      FORMAT JSON
+    """.encode()
     request = urllib.request.Request(
         f"https://api.cloudflare.com/client/v4/accounts/{account_id}/analytics_engine/sql",
         data=payload,
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "text/plain"},
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         result = json.load(response)
