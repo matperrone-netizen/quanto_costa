@@ -260,6 +260,46 @@
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/opel/frontera-e/frontera-e-113-cv-gs-153158202406.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "nissan-qashqai-e-power-n-connecta-nlt-36-10000",
+    "brand": "Nissan", "model": "Qashqai", "aliases": ["nissan qashqai", "qashqai"], "match": ["nissan", "qashqai"],
+    "title": "Nissan Qashqai e-Power N-Connecta - noleggio",
+    "type": "rental", "payment": 349, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 10000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/nissan/qashqai/qashqai-e-power-n-connecta-145613202406.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "36 mesi, 10.000 km/anno, anticipo €6.000 IVA inclusa. La pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "jaecoo-7-super-hybrid-pure-nlt-60-20000",
+    "brand": "Jaecoo", "model": "7 Super Hybrid", "aliases": ["jaecoo 7", "jaecoo 7 super hybrid", "jaecoo"], "match": ["jaecoo", "7"],
+    "title": "Jaecoo 7 Super Hybrid 1.5 TGDI SHS-H Pure - noleggio",
+    "type": "rental", "payment": 539, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jaecoo/jaecoo-7-super-hybrid/jaecoo-7-15-tgdi-shs-h-pure-157478202602.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "tesla-model-y-rwd-standard-nlt-60-20000",
+    "brand": "Tesla", "model": "Model Y", "aliases": ["tesla model y", "model y", "tesla"], "match": ["tesla", "model y"],
+    "title": "Tesla Model Y RWD Standard - noleggio",
+    "type": "rental", "payment": 545, "months": 60, "downPayment": 8000, "finalPayment": 0, "contractKm": 20000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "large" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/tesla/model-y/model-y-rwd-standard-156609202510.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "60 mesi, 20.000 km/anno, anticipo €8.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "mercedes-cla-200-eq-advanced-nlt-36-30000",
+    "brand": "Mercedes", "model": "CLA EQ", "aliases": ["mercedes cla eq", "cla eq", "mercedes cla"], "match": ["mercedes", "cla"],
+    "title": "Mercedes CLA 200 EQ Advanced - noleggio",
+    "type": "rental", "payment": 489, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "large" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mercedes/cla-eq/cla-200-eq-advanced-156617202510.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
   }
   ]
 }
