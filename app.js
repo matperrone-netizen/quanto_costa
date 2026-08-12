@@ -13,6 +13,7 @@ const label = { insurance: 'Assicurazione', tax: 'Bollo', maintenance: 'Manutenz
 let comparisonOffers = null;
 let comparisonNames = { a: 'Offerta A', b: 'Offerta B' };
 let lastShareText = '';
+let lastChecklistText = '';
 
 let staticOffers = [];
 const offersReady = fetch('offers.json', { cache: 'no-cache' })
@@ -200,6 +201,20 @@ async function calculate() {
   const energyPrice = `${offer.fuelPrice.toFixed(2).replace('.', ',')} €`;
   document.getElementById('fuelFormula').textContent = `Calcolo ${energyName}: ${offer.km.toLocaleString('it-IT')} km/anno × ${String(offer.fuelConsumption).replace('.', ',')} ${unit}/100 km × ${energyPrice}/${unit}, diviso 12 = circa ${money(offer.fuelMonthly)}/mese.`;
   lastShareText = `${subject || 'Per la mia auto, '}la stima di Costo Vero è ${money(offer.monthlyTotal)} al mese per guidarla. La rata è ${money(offer.payment)}; anticipo e maxi rata restano separati. Fai la tua stima:`;
+  const baseQuestions = offer.type === 'finance'
+    ? [
+      `Qual è il TAEG effettivo e quali spese sono comprese oltre alla rata di ${money(offer.payment)}?`,
+      offer.finalPayment ? `Quali opzioni ho per la maxi rata di ${money(offer.finalPayment)} e quali condizioni si applicano se restituisco l'auto?` : 'Cosa succede esattamente alla fine del finanziamento?',
+      'Quali sconti sono già inclusi nel preventivo e quali richiedono rottamazione, finanziamento o altri requisiti?',
+      'Quali costi di assicurazione, bollo, manutenzione e gomme restano a mio carico?'
+    ]
+    : [
+      `Il canone di ${money(offer.payment)} include RCA, furto/incendio, Kasko, bollo, manutenzione e gomme?`,
+      `Quanti km sono inclusi e quanto costa ogni km in più rispetto ai ${offer.km.toLocaleString('it-IT')} km/anno che prevedo?`,
+      'Quali franchigie, danni alla riconsegna e penali di uscita anticipata devo considerare?',
+      'Quali sconti sono già inclusi nel preventivo e quali richiedono rottamazione, finanziamento o altri requisiti?'
+    ];
+  lastChecklistText = `Domande da fare prima di firmare${carModel ? ` — ${carModel}` : ''}\n\n${baseQuestions.map((question, index) => `${index + 1}. ${question}`).join('\n')}\n\nChecklist generata da Costo Vero: ${window.location.href}`;
   const decision = document.getElementById('decisionNote');
   if (offer.type === 'finance') {
     const finalText = offer.finalPayment ? ` Alla scadenza c’è una maxi rata di <strong>${money(offer.finalPayment)}</strong>.` : '';
@@ -277,6 +292,20 @@ async function shareResult() {
   }
 }
 
+async function copyQuestions() {
+  if (!lastChecklistText) return;
+  const button = document.getElementById('copyQuestions');
+  try {
+    await navigator.clipboard.writeText(lastChecklistText);
+    const original = button.innerHTML;
+    button.textContent = 'Domande copiate: inviale o portale in concessionaria';
+    window.setTimeout(() => { button.innerHTML = original; }, 2800);
+  } catch {
+    button.textContent = 'Non riesco a copiare ora';
+    window.setTimeout(() => { button.innerHTML = 'Copia le domande da fare prima di firmare <span aria-hidden="true">✓</span>'; }, 2200);
+  }
+}
+
 document.querySelectorAll('input[name="proposalType"]').forEach(input => input.addEventListener('change', updateProposalVisibility));
 document.getElementById('proposalTypeB').addEventListener('change', updateSecondProposalVisibility);
 ['downPayment', 'finalPayment', 'downPaymentB', 'finalPaymentB'].forEach(id => {
@@ -292,6 +321,7 @@ document.querySelectorAll('.compare-card').forEach(card => card.addEventListener
 document.getElementById('calculate').addEventListener('click', calculate);
 document.getElementById('toggleDetails').addEventListener('click', () => document.querySelector('.second-step').scrollIntoView({ behavior: 'smooth', block: 'start' }));
 document.getElementById('shareResult').addEventListener('click', shareResult);
+document.getElementById('copyQuestions').addEventListener('click', copyQuestions);
 updateProposalVisibility();
 updateSecondProposalVisibility();
 toggleOfferB();
