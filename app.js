@@ -24,6 +24,55 @@ function trackActivity(eventName) {
   }).catch(() => {});
 }
 
+function shareableUrl() {
+  const url = new URL(window.location.href);
+  url.search = '';
+  const params = url.searchParams;
+  const set = (key, inputId) => params.set(key, document.getElementById(inputId).value);
+  params.set('type', proposalType());
+  set('rata', 'monthlyPayment');
+  set('rate', 'duration');
+  set('anticipo', 'downPayment');
+  set('maxi', 'finalPayment');
+  set('auto', 'carModel');
+  set('km', 'annualKm');
+  set('fuel', 'fuel');
+  set('segment', 'segment');
+  set('parcheggio', 'parking');
+  return url.toString();
+}
+
+function restoreSharedEstimate() {
+  const params = new URLSearchParams(window.location.search);
+  if (!params.has('rata')) return;
+  const assign = (key, inputId, maxLength = 80) => {
+    const input = document.getElementById(inputId);
+    const value = params.get(key);
+    if (value !== null) input.value = value.slice(0, maxLength);
+  };
+  const select = (key, inputId) => {
+    const input = document.getElementById(inputId);
+    const value = params.get(key);
+    if ([...input.options].some(option => option.value === value)) input.value = value;
+  };
+  assign('rata', 'monthlyPayment', 10);
+  assign('rate', 'duration', 4);
+  assign('anticipo', 'downPayment', 10);
+  assign('maxi', 'finalPayment', 10);
+  assign('auto', 'carModel');
+  assign('parcheggio', 'parking', 10);
+  select('km', 'annualKm');
+  select('fuel', 'fuel');
+  select('segment', 'segment');
+  const type = params.get('type');
+  if (type === 'finance' || type === 'rental') {
+    document.querySelector(`input[name="proposalType"][value="${type}"]`).checked = true;
+  }
+  document.querySelectorAll('[data-money-input]').forEach(formatThousands);
+  updateProposalVisibility();
+  calculate();
+}
+
 let staticOffers = [];
 const offersReady = fetch('offers.json', { cache: 'no-cache' })
   .then(response => response.ok ? response.json() : [])
@@ -285,14 +334,15 @@ function toggleOfferB() {
 async function shareResult() {
   if (!lastShareText) return;
   const button = document.getElementById('shareResult');
-  const shareData = { title: 'La mia stima auto | Costo Vero', text: lastShareText, url: window.location.href };
+  const shareUrl = shareableUrl();
+  const shareData = { title: 'La mia stima auto | Costo Vero', text: lastShareText, url: shareUrl };
   try {
     if (navigator.share) {
       await navigator.share(shareData);
       trackActivity('share');
       return;
     }
-    await navigator.clipboard.writeText(`${lastShareText} ${window.location.href}`);
+    await navigator.clipboard.writeText(`${lastShareText} ${shareUrl}`);
     trackActivity('share');
     const original = button.innerHTML;
     button.textContent = 'Testo e link copiati';
@@ -339,3 +389,4 @@ document.getElementById('copyQuestions').addEventListener('click', copyQuestions
 updateProposalVisibility();
 updateSecondProposalVisibility();
 toggleOfferB();
+restoreSharedEstimate();
