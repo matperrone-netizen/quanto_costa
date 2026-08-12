@@ -21,6 +21,11 @@
     <main class="article-page">
       <nav class="article-nav" aria-label="Navigazione"><a href="index.html">← Costo Vero</a><a href="index.html#calculator">Vai al calcolatore</a></nav>
       <header class="article-header"><p class="eyebrow">Catalogo statico</p><h1>Offerte auto: confronta ciò che la rata non dice.</h1><p class="article-lead">Qui riportiamo le condizioni che permettono un confronto reale: canone, anticipo, durata e chilometri. Un’offerta non è “migliore” solo perché costa meno al mese.</p><p class="catalog-updated">Catalogo aggiornato il 12 agosto 2026. Disponibilità, servizi e condizioni vanno confermati con il fornitore.</p></header>
+      <section class="catalog-tools" aria-label="Filtra il catalogo">
+        <label>Cerca marca o modello<input id="catalogSearch" type="search" placeholder="Es. Yaris, Peugeot, elettrica" /></label>
+        <label>Canone massimo<select id="catalogMax"><option value="">Qualsiasi rata</option><option value="250">Fino a 250 €/mese</option><option value="350">Fino a 350 €/mese</option><option value="500">Fino a 500 €/mese</option></select></label>
+        <p id="catalogCount" aria-live="polite"></p>
+      </section>
       <section class="catalog-list" aria-label="Offerte nel catalogo">
         <article class="catalog-item"><h2>Leapmotor T03</h2><p class="catalog-price">219 €/mese · 60 mesi</p><p>10.000 km/anno · anticipo 5.000 €</p><a href="https://www.quattroruote.it/noleggio-lungo-termine/leapmotor/t03/t03-70kw-153720202409.html" target="_blank" rel="noreferrer">Vedi fonte e condizioni</a></article>
         <article class="catalog-item"><h2><a href="noleggio-fiat-pandina.html">Fiat Pandina Hybrid</a></h2><p class="catalog-price">193 €/mese · 36 mesi</p><p>10.000 km/anno · anticipo 4.500 €</p><a href="https://www.quattroruote.it/noleggio-lungo-termine/fiat/pandina/pandina-10-firefly-65-cv-hybrid-pop-156572202510.html" target="_blank" rel="noreferrer">Vedi fonte e condizioni</a></article>
@@ -42,6 +47,29 @@
       </section>
       <p class="catalog-note">Le offerte nel catalogo sono riferite a configurazioni specifiche. Inserisci marca, modello e gli stessi km annui nel <a href="index.html#calculator">calcolatore</a> per confrontarle con il tuo preventivo, senza nascondere anticipo e costi di utilizzo.</p>
     </main>
+    <script>
+      (() => {
+        const search = document.getElementById('catalogSearch');
+        const max = document.getElementById('catalogMax');
+        const cards = [...document.querySelectorAll('.catalog-item')];
+        const count = document.getElementById('catalogCount');
+        const filter = () => {
+          const term = search.value.trim().toLocaleLowerCase('it');
+          const limit = Number(max.value || Infinity);
+          let visible = 0;
+          cards.forEach(card => {
+            const price = Number((card.querySelector('.catalog-price')?.textContent || '').match(/\d+/)?.[0] || 0);
+            const match = card.textContent.toLocaleLowerCase('it').includes(term) && price <= limit;
+            card.classList.toggle('hidden', !match);
+            if (match) visible += 1;
+          });
+          count.textContent = `${visible} ${visible === 1 ? 'offerta trovata' : 'offerte trovate'}`;
+        };
+        search.addEventListener('input', filter);
+        max.addEventListener('change', filter);
+        filter();
+      })();
+    </script>
     <footer>Un aiuto per scegliere, non un preventivo vincolante.</footer>
   </body>
 </html>

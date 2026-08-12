@@ -14,6 +14,7 @@ let comparisonOffers = null;
 let comparisonNames = { a: 'Offerta A', b: 'Offerta B' };
 let lastShareText = '';
 let lastChecklistText = '';
+const draftFields = ['monthlyPayment', 'duration', 'downPayment', 'finalPayment', 'carModel', 'annualKm', 'fuel', 'segment', 'parking'];
 
 function trackActivity(eventName) {
   fetch('/api/activity', {
@@ -71,6 +72,25 @@ function restoreSharedEstimate() {
   document.querySelectorAll('[data-money-input]').forEach(formatThousands);
   updateProposalVisibility();
   calculate();
+}
+
+function saveDraft() {
+  try {
+    const draft = Object.fromEntries(draftFields.map(id => [id, document.getElementById(id).value]));
+    draft.type = proposalType();
+    localStorage.setItem('costoVeroDraft', JSON.stringify(draft));
+  } catch (_) {}
+}
+
+function restoreDraft() {
+  if (new URLSearchParams(window.location.search).has('rata')) return;
+  try {
+    const draft = JSON.parse(localStorage.getItem('costoVeroDraft') || 'null');
+    if (!draft) return;
+    draftFields.forEach(id => { if (typeof draft[id] === 'string') document.getElementById(id).value = draft[id]; });
+    if (draft.type === 'finance' || draft.type === 'rental') document.querySelector(`input[name="proposalType"][value="${draft.type}"]`).checked = true;
+    document.querySelectorAll('[data-money-input]').forEach(formatThousands);
+  } catch (_) {}
 }
 
 let staticOffers = [];
@@ -245,6 +265,7 @@ async function calculate() {
   const catalogOfferForModel = hasManualOfferB ? null : findStaticOffer(carModel);
   const staticOffer = hasManualOfferB ? null : findStaticOffer(carModel, profile.km);
   const offerB = hasManualOfferB ? getOfferB(profile) : staticOffer ? estimateOffer(staticOffer, { ...profile, ...staticOffer.profile }) : null;
+  saveDraft();
   trackActivity('calculation');
   if (offerB) trackActivity('comparison');
   document.getElementById('quotedPayment').textContent = money(offer.payment);
@@ -288,6 +309,13 @@ async function calculate() {
   } else {
     decision.innerHTML = `<strong>Come leggere questa offerta.</strong> Il canone mensile non include il versamento iniziale di <strong>${money(offer.downPayment)}</strong>, che richiede liquidità subito. I pagamenti previsti dal contratto sono <strong>${money(offer.contractTotal)}</strong>; a fine noleggio non avrai un'auto da rivendere.`;
   }
+  const alerts = [];
+  if (offer.downPayment >= offer.payment * 6 && offer.downPayment > 0) alerts.push(`Il versamento iniziale equivale a circa <strong>${Math.round(offer.downPayment / offer.payment)} rate</strong>: consideralo separatamente dal canone.`);
+  if (offer.type === 'finance' && offer.finalPayment > 0) alerts.push(`La maxi rata equivale a circa <strong>${Math.round(offer.finalPayment / offer.payment)} rate</strong>: chiarisci fin da ora se pensi di riscattare o restituire l’auto.`);
+  if (offer.type === 'rental' && offer.included.length < 4) alerts.push('Nel canone mancano alcuni costi ricorrenti: verifica assicurazione, bollo, manutenzione e gomme.');
+  const quoteAlerts = document.getElementById('quoteAlerts');
+  quoteAlerts.innerHTML = alerts.map(alert => `<p>${alert}</p>`).join('');
+  quoteAlerts.classList.toggle('hidden', !alerts.length);
   const rows = Object.entries(offer.costs).filter(([, amount]) => amount > 0).sort((a, b) => b[1] - a[1]);
   const max = Math.max(...rows.map(([, amount]) => amount));
   document.getElementById('breakdownItems').innerHTML = rows.map(([key, amount]) => `<div class="breakdown-row"><span>${label[key]}</span><i class="bar" style="width:${Math.max(4, amount / max * 130)}px"></i><strong>${money(amount)}/mese</strong></div>`).join('');
@@ -386,6 +414,7 @@ document.getElementById('calculate').addEventListener('click', calculate);
 document.getElementById('toggleDetails').addEventListener('click', () => document.querySelector('.second-step').scrollIntoView({ behavior: 'smooth', block: 'start' }));
 document.getElementById('shareResult').addEventListener('click', shareResult);
 document.getElementById('copyQuestions').addEventListener('click', copyQuestions);
+restoreDraft();
 updateProposalVisibility();
 updateSecondProposalVisibility();
 toggleOfferB();
