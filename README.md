@@ -31,6 +31,8 @@ Prima della pubblicazione, `catalog-check.ps1` controlla automaticamente i campi
 
 Il workflow `.github/workflows/daily-report.yml` invia alle 20:00 ora italiana un report delle metriche aggregate Cloudflare. I secret `GMAIL_APP_PASSWORD`, `CLOUDFLARE_ANALYTICS_TOKEN` e `CLOUDFLARE_ZONE_ID` vanno inseriti solo nella sezione GitHub Secrets: non devono mai finire nei file del repository.
 
+La Pages Function `functions/api/activity.js` registra solo quattro eventi anonimi aggregati: calcolo, confronto, condivisione e checklist. Non riceve né salva importi, modello, IP, email o identificativi dell'utente. Per riportarli nell'email, il workflow usa anche il secret `CLOUDFLARE_ACCOUNT_ID` e un token con `Account Analytics: Read`.
+
 ## Sviluppi previsti
 
 1. collegare il repository a Cloudflare Pages;

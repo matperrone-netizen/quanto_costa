@@ -15,6 +15,15 @@ let comparisonNames = { a: 'Offerta A', b: 'Offerta B' };
 let lastShareText = '';
 let lastChecklistText = '';
 
+function trackActivity(eventName) {
+  fetch('/api/activity', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event: eventName }),
+    keepalive: true
+  }).catch(() => {});
+}
+
 let staticOffers = [];
 const offersReady = fetch('offers.json', { cache: 'no-cache' })
   .then(response => response.ok ? response.json() : [])
@@ -187,6 +196,8 @@ async function calculate() {
   const catalogOfferForModel = hasManualOfferB ? null : findStaticOffer(carModel);
   const staticOffer = hasManualOfferB ? null : findStaticOffer(carModel, profile.km);
   const offerB = hasManualOfferB ? getOfferB(profile) : staticOffer ? estimateOffer(staticOffer, { ...profile, ...staticOffer.profile }) : null;
+  trackActivity('calculation');
+  if (offerB) trackActivity('comparison');
   document.getElementById('quotedPayment').textContent = money(offer.payment);
   document.getElementById('realMonthly').textContent = money(offer.monthlyTotal);
   document.getElementById('monthlyDriving').textContent = money(offer.monthlyTotal);
@@ -278,9 +289,11 @@ async function shareResult() {
   try {
     if (navigator.share) {
       await navigator.share(shareData);
+      trackActivity('share');
       return;
     }
     await navigator.clipboard.writeText(`${lastShareText} ${window.location.href}`);
+    trackActivity('share');
     const original = button.innerHTML;
     button.textContent = 'Testo e link copiati';
     window.setTimeout(() => { button.innerHTML = original; }, 2200);
@@ -297,6 +310,7 @@ async function copyQuestions() {
   const button = document.getElementById('copyQuestions');
   try {
     await navigator.clipboard.writeText(lastChecklistText);
+    trackActivity('checklist');
     const original = button.innerHTML;
     button.textContent = 'Domande copiate: inviale o portale in concessionaria';
     window.setTimeout(() => { button.innerHTML = original; }, 2800);
