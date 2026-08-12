@@ -220,6 +220,46 @@
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/renault/5-e-tech-electric/5-120-cv-urban-range-evolution-154325202411.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "leapmotor-t03-nlt-60-10000",
+    "brand": "Leapmotor", "model": "T03", "aliases": ["leapmotor t03", "t03"], "match": ["leapmotor", "t03"],
+    "title": "Leapmotor T03 70 kW — noleggio",
+    "type": "rental", "payment": 219, "months": 60, "downPayment": 5000, "finalPayment": 0, "contractKm": 10000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "city" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/leapmotor/t03/t03-70kw-153720202409.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "60 mesi, 10.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "fiat-500-hybrid-pop-nlt-36-30000",
+    "brand": "Fiat", "model": "500", "aliases": ["fiat 500", "500 hybrid", "cinquecento"], "match": ["fiat", "500"],
+    "title": "Fiat 500 Berlina Hybrid Pop — noleggio",
+    "type": "rental", "payment": 239, "months": 36, "downPayment": 5000, "finalPayment": 0, "contractKm": 30000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "city" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/fiat/500/500-berlina-hybrid-pop-156826202511.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "36 mesi, 30.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "citroen-c3-aircross-electric-you-nlt-36-30000",
+    "brand": "Citroën", "model": "C3 Aircross", "aliases": ["citroen c3 aircross", "citroën c3 aircross", "c3 aircross"], "match": ["c3", "aircross"],
+    "title": "Citroën C3 Aircross elettrica You — noleggio",
+    "type": "rental", "payment": 329, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/citroen/c3-aicross/c3-aircross-motore-elettrico-113-cv-you-153185202512.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "opel-frontera-e-gs-nlt-60-20000",
+    "brand": "Opel", "model": "Frontera-e", "aliases": ["opel frontera e", "opel frontera-e", "frontera e", "frontera-e"], "match": ["opel", "frontera"],
+    "title": "Opel Frontera-e 113 CV GS — noleggio",
+    "type": "rental", "payment": 394, "months": 60, "downPayment": 5000, "finalPayment": 0, "contractKm": 20000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/opel/frontera-e/frontera-e-113-cv-gs-153158202406.html",
+    "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
+    "conditions": "60 mesi, 20.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
   }
   ]
 }
