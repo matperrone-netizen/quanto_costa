@@ -79,6 +79,9 @@
           });
           count.textContent = `${visible} ${visible === 1 ? 'offerta trovata' : 'offerte trovate'}`;
         };
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('q')) search.value = params.get('q').slice(0, 80);
+        if ([...max.options].some(option => option.value === params.get('max'))) max.value = params.get('max');
         search.addEventListener('input', filter);
         max.addEventListener('change', filter);
         filter();
