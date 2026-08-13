@@ -350,6 +350,56 @@
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jaecoo/jaecoo-5/jaecoo-5-16-tgdi-147-cv-aut-pure-156408202509.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "mg-mg3-hybrid-luxury-nlt-60-50000",
+    "brand": "MG", "model": "MG3", "aliases": ["mg3", "mg mg3", "mg 3"], "match": ["mg", "mg3"],
+    "title": "MG MG3 1.5 Hybrid+ Luxury - noleggio",
+    "type": "rental", "payment": 279, "months": 60, "downPayment": 4880, "finalPayment": 0, "contractKm": 50000,
+    "included": ["insurance", "maintenance"], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "compact" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mg-3-hybrid-.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "60 mesi, 50.000 km/anno, anticipo €4.880 IVA inclusa. La fonte indica manutenzione, Kasko, furto/incendio, RCA e assistenza inclusi; proposta riservata a nuovi clienti o rinnovi Ayvens e soggetta ad approvazione."
+  },
+  {
+    "id": "mg-zs-hybrid-luxury-nlt-49-10000",
+    "brand": "MG", "model": "ZS", "aliases": ["mg zs", "zs hybrid", "mg"], "match": ["mg", "zs"],
+    "title": "MG ZS 1.5 Hybrid+ Luxury - noleggio",
+    "type": "rental", "payment": 297, "months": 49, "downPayment": 5000, "finalPayment": 0, "contractKm": 10000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mg/zs/zs-15-hybrid-plus-luxury-154497202410.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "49 mesi, 10.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "byd-dolphin-design-nlt-60-20000",
+    "brand": "BYD", "model": "Dolphin", "aliases": ["byd dolphin", "dolphin", "byd"], "match": ["byd", "dolphin"],
+    "title": "BYD Dolphin 60,4 kWh Design - noleggio",
+    "type": "rental", "payment": 377, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/byd/dolphin/dolphin-604-kwh-design-149660202306.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "renault-megane-e-tech-techno-nlt-25-50000",
+    "brand": "Renault", "model": "Megane E-Tech", "aliases": ["renault megane e tech", "renault megane e-tech", "megane e tech", "megane elettrica"], "match": ["renault", "megane"],
+    "title": "Renault Megane E-Tech Electric 220 CV Techno - noleggio",
+    "type": "rental", "payment": 299, "months": 25, "downPayment": 6000, "finalPayment": 0, "contractKm": 50000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/renault/megane-e-tech-electric/megane-220-cv-comfort-range-ac11-techno-155497202504.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "25 mesi, 50.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "byd-atto-2-dmi-active-nlt-60-20000",
+    "brand": "BYD", "model": "Atto 2 DM-i", "aliases": ["byd atto 2", "atto 2", "byd atto"], "match": ["byd", "atto"],
+    "title": "BYD Atto 2 DM-i 1.5 165 CV Active - noleggio",
+    "type": "rental", "payment": 395, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/byd/atto-2-dm-i/atto-2-dm-i-15-165-cv-phev-active-156725202510.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
   }
   ]
 }
