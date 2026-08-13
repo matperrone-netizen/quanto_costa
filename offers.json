@@ -300,6 +300,56 @@
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mercedes/cla-eq/cla-200-eq-advanced-156617202510.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "hyundai-tucson-16-crdi-48v-business-nlt-48-25000",
+    "brand": "Hyundai", "model": "Tucson", "aliases": ["hyundai tucson", "tucson"], "match": ["hyundai", "tucson"],
+    "title": "Hyundai Tucson 1.6 CRDi 48V DCT Business - noleggio",
+    "type": "rental", "payment": 383, "months": 48, "downPayment": 6000, "finalPayment": 0, "contractKm": 25000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "diesel", "segment": "large" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/hyundai/tucson-3-serie/tucson-16-crdi-48v-dct-business-152526202405.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "48 mesi, 25.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "volkswagen-t-roc-etsi-life-nlt-36-30000",
+    "brand": "Volkswagen", "model": "T-Roc", "aliases": ["volkswagen t roc", "volkswagen t-roc", "t roc", "t-roc"], "match": ["volkswagen", "t roc"],
+    "title": "Volkswagen T-Roc 1.5 eTSI ACT DSG Life - noleggio",
+    "type": "rental", "payment": 394, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/volkswagen/t-roc/t-roc-15-etsi-act-dsg-life-156426202509.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "volkswagen-golf-tdi-dsg-nlt-49-10000",
+    "brand": "Volkswagen", "model": "Golf", "aliases": ["volkswagen golf", "golf"], "match": ["volkswagen", "golf"],
+    "title": "Volkswagen Golf 2.0 TDI 150 CV DSG Edition Plus - noleggio",
+    "type": "rental", "payment": 448, "months": 49, "downPayment": 6000, "finalPayment": 0, "contractKm": 10000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "diesel", "segment": "compact" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/volkswagen/golf/golf-20-tdi-150-cv-dsg-scr-editon-plus-151725202402.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "49 mesi, 10.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "volkswagen-tiguan-etsi-ehybrid-nlt-36-30000",
+    "brand": "Volkswagen", "model": "Tiguan", "aliases": ["volkswagen tiguan", "tiguan"], "match": ["volkswagen", "tiguan"],
+    "title": "Volkswagen Tiguan 1.5 TSI eHybrid DSG Edition Plus - noleggio",
+    "type": "rental", "payment": 559, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/volkswagen/tiguan/tiguan-15-tsi-ehybrid-dsg-edition-plus-151775202402.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. La pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
+  },
+  {
+    "id": "jaecoo-5-tgdi-pure-nlt-36-30000",
+    "brand": "Jaecoo", "model": "5", "aliases": ["jaecoo 5", "jaecoo"], "match": ["jaecoo", "5"],
+    "title": "Jaecoo 5 1.6 TGDI 147 CV aut. Pure - noleggio",
+    "type": "rental", "payment": 369, "months": 36, "downPayment": 5000, "finalPayment": 0, "contractKm": 30000,
+    "included": [], "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
+    "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jaecoo/jaecoo-5/jaecoo-5-16-tgdi-147-cv-aut-pure-156408202509.html",
+    "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
+    "conditions": "36 mesi, 30.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
   }
   ]
 }
