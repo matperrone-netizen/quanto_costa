@@ -68,12 +68,15 @@
         const cards = [...document.querySelectorAll('.catalog-item')];
         const count = document.getElementById('catalogCount');
         const filter = () => {
-          const term = search.value.trim().toLocaleLowerCase('it');
+          const normalize = value => String(value).toLocaleLowerCase('it')
+            .replace(/hybrid/g, 'ibrid').replace(/ibrida|ibrido|ibride/g, 'ibrid')
+            .replace(/electric/g, 'elettric').replace(/elettrica|elettrico|elettriche/g, 'elettric');
+          const term = normalize(search.value.trim());
           const limit = Number(max.value || Infinity);
           let visible = 0;
           cards.forEach(card => {
             const price = Number((card.querySelector('.catalog-price')?.textContent || '').match(/\d+/)?.[0] || 0);
-            const match = card.textContent.toLocaleLowerCase('it').includes(term) && price <= limit;
+            const match = normalize(card.textContent).includes(term) && price <= limit;
             card.classList.toggle('hidden', !match);
             if (match) visible += 1;
           });
