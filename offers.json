@@ -355,11 +355,11 @@
     "id": "mg-mg3-hybrid-luxury-nlt-60-50000",
     "brand": "MG", "model": "MG3", "aliases": ["mg3", "mg mg3", "mg 3"], "match": ["mg", "mg3"],
     "title": "MG MG3 1.5 Hybrid+ Luxury - noleggio",
-    "type": "rental", "payment": 279, "months": 60, "downPayment": 4880, "finalPayment": 0, "contractKm": 50000,
+    "type": "rental", "payment": 279, "months": 60, "downPayment": 4880, "finalPayment": 0, "contractKm": 50000, "kmUnit": "total",
     "included": ["insurance", "maintenance"], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "compact" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mg-3-hybrid-.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
-    "conditions": "60 mesi, 50.000 km/anno, anticipo €4.880 IVA inclusa. La fonte indica manutenzione, Kasko, furto/incendio, RCA e assistenza inclusi; proposta riservata a nuovi clienti o rinnovi Ayvens e soggetta ad approvazione."
+    "conditions": "60 mesi, 50.000 km complessivi, anticipo €4.880 IVA inclusa. La fonte indica manutenzione, Kasko, furto/incendio, RCA e assistenza inclusi; proposta riservata a nuovi clienti o rinnovi Ayvens e soggetta ad approvazione."
   },
   {
     "id": "mg-zs-hybrid-luxury-nlt-49-10000",

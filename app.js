@@ -125,19 +125,22 @@ function populateModelSuggestions() {
     return option;
   }));
 }
-function findStaticOffers(carModel, contractKm = null) {
+function offerAnnualKm(offer) {
+  return offer.kmUnit === 'total' ? Math.round(offer.contractKm / offer.months * 12) : offer.contractKm;
+}
+function findStaticOffers(carModel, annualKm = null) {
   const normalized = normalizeCatalogText(carModel);
   if (!normalized) return [];
   return staticOffers
-    .filter(offer => (!contractKm || offer.contractKm === contractKm) && offerSearchTerms(offer).some(term => normalized.includes(term)))
+    .filter(offer => (!annualKm || offerAnnualKm(offer) === annualKm) && offerSearchTerms(offer).some(term => normalized.includes(term)))
     .sort((first, second) => {
       const firstScore = Math.max(...offerSearchTerms(first).filter(term => normalized.includes(term)).map(term => term.length));
       const secondScore = Math.max(...offerSearchTerms(second).filter(term => normalized.includes(term)).map(term => term.length));
       return secondScore - firstScore || String(second.checkedAtISO).localeCompare(String(first.checkedAtISO));
     });
 }
-function findStaticOffer(carModel, contractKm = null) {
-  return findStaticOffers(carModel, contractKm)[0] || null;
+function findStaticOffer(carModel, annualKm = null) {
+  return findStaticOffers(carModel, annualKm)[0] || null;
 }
 
 function estimateOffer({ type, payment, months, downPayment, finalPayment, included, endChoice = 'undecided' }, profile) {
@@ -328,7 +331,7 @@ async function calculate() {
     document.querySelectorAll('.compare-card').forEach(card => card.classList.remove('active'));
     renderComparison(offer, offerB, staticOffer);
   } else if (!hasManualOfferB) {
-    document.getElementById('noOfferBMessage').textContent = catalogOfferForModel ? `Abbiamo un’offerta verificata per “${carModel}”, ma con ${catalogOfferForModel.contractKm.toLocaleString('it-IT')} km/anno. Seleziona lo stesso chilometraggio per confrontarla correttamente.` : carModel ? `Non abbiamo ancora un’alternativa verificata per “${carModel}” nel catalogo statico. Non mostriamo un preventivo inventato.` : 'Inserisci marca e modello per cercare un’alternativa nel catalogo statico.';
+    document.getElementById('noOfferBMessage').textContent = catalogOfferForModel ? `Abbiamo un’offerta verificata per “${carModel}”, equivalente a circa ${offerAnnualKm(catalogOfferForModel).toLocaleString('it-IT')} km/anno. Seleziona lo stesso chilometraggio per confrontarla correttamente.` : carModel ? `Non abbiamo ancora un’alternativa verificata per “${carModel}” nel catalogo statico. Non mostriamo un preventivo inventato.` : 'Inserisci marca e modello per cercare un’alternativa nel catalogo statico.';
   }
   const results = document.getElementById('results');
   results.classList.remove('hidden');
