@@ -103,8 +103,12 @@ const offersReady = fetch('offers.json', { cache: 'no-cache' })
   .catch(() => { staticOffers = []; });
 
 function value(id) {
-  const raw = document.getElementById(id).value;
-  return Math.max(0, Number(String(raw).replace(/\./g, '').replace(',', '.')) || 0);
+  const input = document.getElementById(id);
+  const raw = String(input.value).trim();
+  const normalized = input.dataset.moneyInput === 'true'
+    ? raw.replace(/\./g, '').replace(',', '.')
+    : raw.replace(',', '.');
+  return Math.max(0, Number(normalized) || 0);
 }
 function proposalType() { return document.querySelector('input[name="proposalType"]:checked').value; }
 function selectedCosts(selector) { return [...document.querySelectorAll(`${selector} input:checked`)].map(input => input.value); }
