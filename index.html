@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260814-1" />
+    <link rel="stylesheet" href="styles.css?v=20260814-2" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -129,11 +129,11 @@
 
       <section id="results" class="results hidden" aria-live="polite">
         <p class="eyebrow">La tua stima</p>
-        <h2>Non ti costa <span id="quotedPayment">€299</span> al mese.</h2>
-        <p class="real-cost">Ti costa circa <strong id="realMonthly">€0</strong><span>/mese</span></p>
+        <h2>La rata di <span id="quotedPayment">€299</span> non racconta tutto.</h2>
+        <p class="real-cost">Costo mensile stimato <strong id="realMonthly">€0</strong><span>/mese</span></p>
         <p id="resultExplanation" class="result-explanation"></p>
         <div class="summary-grid">
-          <article><span>Costo mensile di guida</span><strong id="monthlyDriving">€0</strong></article>
+          <article><span>Costo mensile stimato di guida</span><strong id="monthlyDriving">€0</strong></article>
           <article><span id="downPaymentResultLabel">Anticipo da versare oggi</span><strong id="downPaymentResult">€0</strong></article>
           <article><span>Maxi rata alla scadenza</span><strong id="finalPaymentResult">€0</strong></article>
         </div>
@@ -152,11 +152,16 @@
           <p class="comparison-note">Il confronto indica l'impegno di spesa, non il valore economico finale: nell'acquisto il valore residuo dell'auto può cambiare il risultato.</p>
         </section>
         <div id="mainBreakdown" class="breakdown">
-          <div class="breakdown-header"><h3>Da cosa è composto</h3><button id="toggleDetails" type="button">Modifica le stime</button></div>
+          <div class="breakdown-header"><h3>Dato del preventivo + costi stimati</h3><button id="toggleDetails" type="button">Rivedi i dati</button></div>
           <div id="breakdownItems"></div>
         </div>
         <p id="fuelFormula" class="fuel-formula"></p>
-        <p class="method-note">Stima basata sui dati inseriti e su valori medi italiani per la categoria scelta. Assicurazione, consumi e costi di manutenzione possono variare sensibilmente in base a zona, modello e guidatore.</p>
+        <details class="assumptions-box">
+          <summary>Quali numeri sono certi e quali sono stimati?</summary>
+          <div id="assumptionDetails"></div>
+          <p>Le ipotesi standard servono solo a non ignorare costi reali che restano fuori dalla rata. Non sono un preventivo assicurativo, fiscale o di manutenzione.</p>
+          <a href="come-calcoliamo-costo-auto.html">Metodo e limiti del calcolo →</a>
+        </details>
         <button id="copyQuestions" class="checklist-result" type="button">Copia le domande da fare prima di firmare <span aria-hidden="true">✓</span></button>
         <button id="shareResult" class="share-result" type="button">Condividi questa stima <span aria-hidden="true">↗</span></button>
       </section>
@@ -220,7 +225,6 @@
       </article>
     </main>
     <footer>Un aiuto per scegliere, non un preventivo vincolante. Le offerte del catalogo riportano fonte e data di consultazione.</footer>
-    <script src="app.js?v=20260814-3"></script>
+    <script src="app.js?v=20260814-4"></script>
   </body>
 </html>
-

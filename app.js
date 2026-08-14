@@ -10,6 +10,7 @@ const estimates = {
 };
 const energyPrice = { petrol: 1.82, diesel: 1.72, hybrid: 1.78, electric: 0.33 };
 const label = { insurance: 'Assicurazione', tax: 'Bollo', maintenance: 'Manutenzione', tires: 'Gomme', fuel: 'Carburante / ricarica', parking: 'Parcheggio', payment: 'Rata o canone' };
+const valueOrigin = { payment: 'dato inserito', parking: 'dato inserito', fuel: 'calcolo stimato', insurance: 'ipotesi standard', tax: 'ipotesi standard', maintenance: 'ipotesi standard', tires: 'ipotesi standard' };
 let comparisonOffers = null;
 let comparisonNames = { a: 'Offerta A', b: 'Offerta B' };
 let lastShareText = '';
@@ -253,7 +254,7 @@ function showOfferDetails(which) {
   const composition = Object.entries(offer.costs)
     .filter(([, amount]) => amount > 0)
     .sort((a, b) => b[1] - a[1]);
-  details.innerHTML = `<h4>${name}: dettaglio dell'impegno</h4>${rows.map(([title, amount]) => `<div class="offer-detail-row"><span>${title}</span><strong>${amount}</strong></div>`).join('')}<h4>Da cosa è composto</h4>${composition.map(([key, amount]) => `<div class="offer-detail-row"><span>${label[key]}</span><strong>${money(amount)}/mese</strong></div>`).join('')}<p>${offer.type === 'finance' ? 'Se riscatti l’auto, valuta anche quanto potrebbe valere alla fine del contratto.' : 'Nel noleggio verifica sempre km inclusi, franchigie e condizioni di restituzione.'}</p>`;
+  details.innerHTML = `<h4>${name}: dettaglio dell'impegno</h4>${rows.map(([title, amount]) => `<div class="offer-detail-row"><span>${title}</span><strong>${amount}</strong></div>`).join('')}<h4>Dato del preventivo + costi stimati</h4>${composition.map(([key, amount]) => `<div class="offer-detail-row"><span>${label[key]} <small>${valueOrigin[key]}</small></span><strong>${money(amount)}/mese</strong></div>`).join('')}<p>${offer.type === 'finance' ? 'Se riscatti l’auto, valuta anche quanto potrebbe valere alla fine del contratto.' : 'Nel noleggio verifica sempre km inclusi, franchigie e condizioni di restituzione.'}</p>`;
   details.classList.remove('hidden');
   details.dataset.open = which;
   document.querySelectorAll('.compare-card').forEach(card => card.classList.toggle('active', card.dataset.offer === which));
@@ -318,11 +319,17 @@ async function calculate() {
   document.getElementById('finalPaymentResult').textContent = offer.finalPayment ? money(offer.finalPayment) : 'Nessuna';
   const extra = offer.monthlyTotal - offer.payment;
   const subject = carModel ? `Per ${carModel}, ` : '';
-  document.getElementById('resultExplanation').textContent = `${subject}oltre alla ${offer.type === 'finance' ? 'rata' : 'canone'} di ${money(offer.payment)}, stimiamo ${money(extra)} al mese per usarla e mantenerla. Anticipo e maxi rata non sono inclusi qui.`;
+  document.getElementById('resultExplanation').textContent = `${subject}la ${offer.type === 'finance' ? 'rata' : 'canone'} di ${money(offer.payment)} è il dato inserito. Gli altri ${money(extra)} al mese sono una stima dei costi d’uso non compresi. Anticipo e maxi rata restano separati.`;
   const unit = offer.fuel === 'electric' ? 'kWh' : 'L';
   const energyName = offer.fuel === 'electric' ? 'ricarica' : 'carburante';
   const energyPrice = `${offer.fuelPrice.toFixed(2).replace('.', ',')} €`;
   document.getElementById('fuelFormula').textContent = `Calcolo ${energyName}: ${offer.km.toLocaleString('it-IT')} km/anno × ${String(offer.fuelConsumption).replace('.', ',')} ${unit}/100 km × ${energyPrice}/${unit}, diviso 12 = circa ${money(offer.fuelMonthly)}/mese.`;
+  const base = estimates[profile.segment];
+  const standardAssumptions = Object.entries({ insurance: base.insurance, tax: base.tax, maintenance: base.maintenance, tires: base.tires })
+    .filter(([key]) => Object.hasOwn(offer.costs, key))
+    .map(([key, annual]) => `<li><strong>${label[key]}:</strong> ipotesi standard di ${money(annual)}/anno per la categoria scelta; sostituiscila mentalmente con il tuo preventivo quando lo conosci.</li>`)
+    .join('');
+  document.getElementById('assumptionDetails').innerHTML = `<ul><li><strong>${offer.type === 'finance' ? 'Rata' : 'Canone'}:</strong> ${money(offer.payment)}/mese, dato inserito da te.</li><li><strong>${energyName === 'carburante' ? 'Carburante' : 'Ricarica'}:</strong> calcolo sui km e sulle ipotesi mostrate qui sopra.</li>${profile.parking ? `<li><strong>Parcheggio:</strong> ${money(profile.parking)}/mese, dato inserito da te.</li>` : ''}${standardAssumptions}</ul>`;
   lastShareText = `${subject || 'Per la mia auto, '}la stima di Costo Vero è ${money(offer.monthlyTotal)} al mese per guidarla. La rata è ${money(offer.payment)}; anticipo e maxi rata restano separati. Fai la tua stima:`;
   const baseQuestions = offer.type === 'finance'
     ? [
@@ -362,7 +369,7 @@ async function calculate() {
   quoteAlerts.classList.toggle('hidden', !alerts.length);
   const rows = Object.entries(offer.costs).filter(([, amount]) => amount > 0).sort((a, b) => b[1] - a[1]);
   const max = Math.max(...rows.map(([, amount]) => amount));
-  document.getElementById('breakdownItems').innerHTML = rows.map(([key, amount]) => `<div class="breakdown-row"><span>${label[key]}</span><i class="bar" style="width:${Math.max(4, amount / max * 130)}px"></i><strong>${money(amount)}/mese</strong></div>`).join('');
+  document.getElementById('breakdownItems').innerHTML = rows.map(([key, amount]) => `<div class="breakdown-row"><span>${label[key]} <small>${valueOrigin[key]}</small></span><i class="bar" style="width:${Math.max(4, amount / max * 130)}px"></i><strong>${money(amount)}/mese</strong></div>`).join('');
   const comparisonResult = document.getElementById('comparisonResult');
   comparisonResult.classList.toggle('hidden', !offerB);
   document.getElementById('mainBreakdown').classList.toggle('hidden', Boolean(offerB));
@@ -472,4 +479,3 @@ updateProposalVisibility();
 updateSecondProposalVisibility();
 toggleOfferB();
 restoreSharedEstimate();
-
