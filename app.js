@@ -258,6 +258,41 @@ function showOfferDetails(which) {
 async function calculate() {
   await offersReady;
   document.querySelectorAll('[data-money-input]').forEach(formatThousands);
+  const formError = document.getElementById('formError');
+  const invalidField = (message, fieldId) => {
+    document.querySelectorAll('[aria-invalid="true"]').forEach(field => field.removeAttribute('aria-invalid'));
+    formError.textContent = message;
+    formError.classList.remove('hidden');
+    document.getElementById('results').classList.add('hidden');
+    const field = document.getElementById(fieldId);
+    field.setAttribute('aria-invalid', 'true');
+    field.focus();
+  };
+  const payment = value('monthlyPayment');
+  const duration = value('duration');
+  if (payment <= 0) {
+    invalidField('Inserisci una rata o un canone mensile maggiore di zero.', 'monthlyPayment');
+    return;
+  }
+  if (!Number.isInteger(duration) || duration < 1) {
+    invalidField('Inserisci un numero di rate mensili valido.', 'duration');
+    return;
+  }
+  if (document.getElementById('hasOfferB').checked) {
+    const paymentB = value('monthlyPaymentB');
+    const durationB = value('durationB');
+    if (paymentB <= 0) {
+      invalidField('Inserisci una rata o un canone valido anche per l’offerta B.', 'monthlyPaymentB');
+      return;
+    }
+    if (!Number.isInteger(durationB) || durationB < 1) {
+      invalidField('Inserisci un numero di rate valido anche per l’offerta B.', 'durationB');
+      return;
+    }
+  }
+  document.querySelectorAll('[aria-invalid="true"]').forEach(field => field.removeAttribute('aria-invalid'));
+  formError.textContent = '';
+  formError.classList.add('hidden');
   const profile = {
     km: value('annualKm'), fuel: document.getElementById('fuel').value,
     segment: document.getElementById('segment').value, parking: value('parking')
@@ -353,8 +388,17 @@ function updateSecondProposalVisibility() {
   document.getElementById('downPaymentBLabel').childNodes[0].textContent = isFinance ? 'Anticipo ' : 'Versamento iniziale ';
 }
 function formatThousands(input) {
-  const digits = input.value.replace(/\D/g, '');
+  let raw = input.value.trim();
+  const isThousandsOnly = /^\d{1,3}(?:\.\d{3})+$/.test(raw) || /^\d{1,3}(?:,\d{3})+$/.test(raw);
+  if (!isThousandsOnly && /[.,]\d{1,2}$/.test(raw)) raw = raw.replace(/[.,]\d{1,2}$/, '');
+  const digits = raw.replace(/\D/g, '');
   input.value = digits ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+}
+
+function isTypingMoneyDecimals(input) {
+  const raw = input.value.trim();
+  const isThousandsOnly = /^\d{1,3}(?:\.\d{3})+$/.test(raw) || /^\d{1,3}(?:,\d{3})+$/.test(raw);
+  return !isThousandsOnly && /[.,]\d{0,2}$/.test(raw);
 }
 function toggleOfferB() {
   const show = document.getElementById('hasOfferB').checked;
@@ -406,7 +450,7 @@ document.getElementById('proposalTypeB').addEventListener('change', updateSecond
 ['downPayment', 'finalPayment', 'downPaymentB', 'finalPaymentB'].forEach(id => {
   const input = document.getElementById(id);
   input.dataset.moneyInput = 'true';
-  input.addEventListener('input', () => formatThousands(input));
+  input.addEventListener('input', () => { if (!isTypingMoneyDecimals(input)) formatThousands(input); });
   input.addEventListener('change', () => formatThousands(input));
   input.addEventListener('blur', () => formatThousands(input));
   formatThousands(input);
