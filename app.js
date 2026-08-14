@@ -159,7 +159,7 @@ function estimateOffer({ type, payment, months, downPayment, finalPayment, inclu
   const finalIncluded = type !== 'finance' || endChoice !== 'return';
   const contractTotal = baseContractTotal + (finalIncluded ? finalPayment : 0);
   const totalOutlay = contractTotal + (monthlyTotal - payment) * months;
-  return { type, payment, months, downPayment, finalPayment, endChoice, finalIncluded, baseContractTotal, costs, monthlyTotal, contractTotal, totalOutlay, fuelMonthly, fuelConsumption: base[profile.fuel], fuelPrice: energyPrice[profile.fuel], fuel: profile.fuel, km: profile.km };
+  return { type, payment, months, downPayment, finalPayment, included: [...included], endChoice, finalIncluded, baseContractTotal, costs, monthlyTotal, contractTotal, totalOutlay, fuelMonthly, fuelConsumption: base[profile.fuel], fuelPrice: energyPrice[profile.fuel], fuel: profile.fuel, km: profile.km };
 }
 
 function getOfferA(profile) {
@@ -346,7 +346,9 @@ async function calculate() {
     } else if (offer.endChoice === 'return') {
       decision.innerHTML = `<strong>Scenario: restituisci o cambi l'auto.</strong> La maxi rata non è inclusa nel confronto, perché non prevedi il riscatto.${finalText} Verifica però km contrattuali, stato del veicolo e possibili addebiti alla riconsegna.`;
     } else {
-      decision.innerHTML = `<strong>Scenario prudente.</strong> Non avendo scelto cosa fare alla scadenza, il confronto include la maxi rata di <strong>${money(offer.finalPayment)}</strong>. Se restituirai l’auto rispettando le condizioni, potresti non doverla pagare.`;
+      decision.innerHTML = offer.finalPayment
+        ? `<strong>Scenario prudente.</strong> Non avendo scelto cosa fare alla scadenza, il confronto include la maxi rata di <strong>${money(offer.finalPayment)}</strong>. Se restituirai l’auto rispettando le condizioni, potresti non doverla pagare.`
+        : `<strong>Scenario prudente.</strong> Non è indicata una maxi rata finale. Verifica comunque cosa prevede il contratto alla scadenza e se l’auto resterà tua.`;
     }
   } else {
     decision.innerHTML = `<strong>Come leggere questa offerta.</strong> Il canone mensile non include il versamento iniziale di <strong>${money(offer.downPayment)}</strong>, che richiede liquidità subito. I pagamenti previsti dal contratto sono <strong>${money(offer.contractTotal)}</strong>; a fine noleggio non avrai un'auto da rivendere.`;
@@ -470,3 +472,4 @@ updateProposalVisibility();
 updateSecondProposalVisibility();
 toggleOfferB();
 restoreSharedEstimate();
+
