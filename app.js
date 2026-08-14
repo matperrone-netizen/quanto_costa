@@ -188,7 +188,7 @@ function renderComparison(a, b, staticOffer = null) {
   document.getElementById('compareBLabel').innerHTML = `${staticOffer ? 'Alternativa trovata' : 'Offerta B'} <b>Apri dettagli</b>`;
   const source = document.getElementById('catalogSource');
   if (staticOffer) {
-    source.innerHTML = `Alternativa dal catalogo statico: <a href="${staticOffer.sourceUrl}" target="_blank" rel="noreferrer">${staticOffer.sourceName}</a>, consultata il ${staticOffer.checkedAt}. ${staticOffer.conditions}`;
+    source.innerHTML = `Alternativa trovata: <strong>${staticOffer.title}</strong>. Fonte: <a href="${staticOffer.sourceUrl}" target="_blank" rel="noreferrer">${staticOffer.sourceName}</a>, consultata il ${staticOffer.checkedAt}. ${staticOffer.conditions}`;
     source.classList.remove('hidden');
   } else {
     source.classList.add('hidden');

@@ -22,6 +22,7 @@
           <label>2. Quanti viaggi lunghi fai al mese? <small>(oltre 150 km di andata)</small><select id="longTrips" required><option value="">Seleziona un’opzione</option><option value="0">Mai o quasi mai</option><option value="1">1–2 viaggi</option><option value="3">3–4 viaggi</option><option value="5">Più di 4 viaggi</option></select></label>
           <fieldset class="choice-charging"><legend>3. Hai una ricarica affidabile a casa o al lavoro?</legend><label><input type="radio" name="charging" value="yes" required /> Sì</label><label><input type="radio" name="charging" value="no" /> No</label></fieldset>
           <label>4. Quanti km percorri in totale all’anno?<span class="choice-input"><input id="yearlyKm" type="number" min="0" max="100000" placeholder="Inserisci i km (es. 15.000)" required inputmode="numeric" /><b>km</b></span></label>
+          <p id="choiceFormError" class="form-error hidden" role="alert"></p>
           <button type="submit" class="choice-submit">Ottieni la raccomandazione</button>
         </form>
       </section>
@@ -43,12 +44,25 @@
       const title = document.getElementById('choiceTitle');
       const intro = document.getElementById('choiceIntro');
       const reasons = document.getElementById('choiceReasons');
+      const formError = document.getElementById('choiceFormError');
       form.addEventListener('submit', event => {
         event.preventDefault();
         const daily = Number(document.getElementById('dailyKm').value);
         const trips = Number(document.getElementById('longTrips').value);
         const yearly = Number(document.getElementById('yearlyKm').value);
         const charging = document.querySelector('input[name="charging"]:checked').value;
+        const minimumPlausibleYearly = daily * 100;
+        if (daily > 0 && yearly > 0 && yearly < minimumPlausibleYearly) {
+          formError.textContent = `I dati non sembrano coerenti: ${daily} km casa-lavoro al giorno valgono almeno circa ${minimumPlausibleYearly.toLocaleString('it-IT')} km l’anno anche ipotizzando solo 100 giorni di utilizzo. Ricontrolla i km annuali.`;
+          formError.classList.remove('hidden');
+          result.classList.add('hidden');
+          document.getElementById('yearlyKm').setAttribute('aria-invalid', 'true');
+          document.getElementById('yearlyKm').focus();
+          return;
+        }
+        formError.textContent = '';
+        formError.classList.add('hidden');
+        document.getElementById('yearlyKm').removeAttribute('aria-invalid');
         let choice;
         if (charging === 'yes' && daily <= 160 && trips <= 2) {
           choice = { title: 'L’elettrica è adatta al tuo scenario', intro: 'Hai ricarica affidabile e un utilizzo quotidiano compatibile con un’elettrica. La scelta va poi confrontata con il costo della ricarica e il preventivo reale.', reasons: [['Ricarica alla portata', 'Puoi recuperare energia nella routine, non solo durante i viaggi.'], ['Uso quotidiano coerente', `I tuoi ${daily} km giornalieri sono un punto di partenza ragionevole.`], ['Viaggi lunghi gestibili', 'Non sono così frequenti da rendere la pianificazione un ostacolo principale.']] };
