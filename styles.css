@@ -32,3 +32,8 @@ input[aria-invalid="true"], select[aria-invalid="true"] { border-color: #c47a00;
 .assumptions-box li { margin:7px 0; }
 .assumptions-box p { margin:10px 0; }
 .assumptions-box a { color:var(--green); font-weight:700; text-decoration:none; }
+footer { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:8px 18px; }
+footer nav { display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
+footer a { color:var(--muted); font-weight:700; text-decoration:none; }
+footer a:hover { color:var(--accent); text-decoration:underline; }
+@media (max-width:580px) { footer { flex-direction:column; padding-bottom:30px; } }
