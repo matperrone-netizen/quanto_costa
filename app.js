@@ -95,7 +95,7 @@ function restoreDraft() {
 }
 
 let staticOffers = [];
-const offersReady = fetch('offers.json', { cache: 'no-cache' })
+const offersReady = fetch('offers.json?v=20260814-1', { cache: 'no-cache' })
   .then(response => response.ok ? response.json() : [])
   .then(catalog => {
     staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []);
@@ -148,19 +148,19 @@ function findStaticOffer(carModel, annualKm = null) {
   return findStaticOffers(carModel, annualKm)[0] || null;
 }
 
-function estimateOffer({ type, payment, months, downPayment, finalPayment, included, endChoice = 'undecided' }, profile) {
+function estimateOffer({ type, payment, months, downPayment, finalPayment, included, includedKnown = true, endChoice = 'undecided' }, profile) {
   const base = estimates[profile.segment];
   const fuelMonthly = (profile.km / 100 * base[profile.fuel] * energyPrice[profile.fuel]) / 12;
   const costs = { payment, fuel: fuelMonthly, parking: profile.parking };
   ['insurance', 'tax', 'maintenance', 'tires'].forEach(item => {
-    if (type === 'finance' || !included.includes(item)) costs[item] = base[item] / 12;
+    if (type === 'finance' || (includedKnown && !included.includes(item))) costs[item] = base[item] / 12;
   });
   const monthlyTotal = Object.values(costs).reduce((sum, item) => sum + item, 0);
   const baseContractTotal = payment * months + downPayment;
   const finalIncluded = type !== 'finance' || endChoice !== 'return';
   const contractTotal = baseContractTotal + (finalIncluded ? finalPayment : 0);
   const totalOutlay = contractTotal + (monthlyTotal - payment) * months;
-  return { type, payment, months, downPayment, finalPayment, included: [...included], endChoice, finalIncluded, baseContractTotal, costs, monthlyTotal, contractTotal, totalOutlay, fuelMonthly, fuelConsumption: base[profile.fuel], fuelPrice: energyPrice[profile.fuel], fuel: profile.fuel, km: profile.km };
+  return { type, payment, months, downPayment, finalPayment, included: [...included], includedKnown, endChoice, finalIncluded, baseContractTotal, costs, monthlyTotal, contractTotal, totalOutlay, fuelMonthly, fuelConsumption: base[profile.fuel], fuelPrice: energyPrice[profile.fuel], fuel: profile.fuel, km: profile.km };
 }
 
 function getOfferA(profile) {
@@ -202,13 +202,17 @@ function renderComparison(a, b, staticOffer = null) {
   }[priority];
   const aMetric = a[setup.key];
   const bMetric = b[setup.key];
+  const catalogServicesUnknown = Boolean(staticOffer && b.includedKnown === false);
+  const uncertainMetric = catalogServicesUnknown && priority !== 'upfront';
   document.getElementById('compareA').textContent = `${money(aMetric)} ${setup.suffix}`;
-  document.getElementById('compareB').textContent = `${money(bMetric)} ${setup.suffix}`;
+  document.getElementById('compareB').textContent = `${uncertainMetric ? 'almeno ' : ''}${money(bMetric)} ${setup.suffix}`;
   document.getElementById('compareADetail').textContent = `${a.type === 'finance' ? 'Anticipo' : 'Versamento iniziale'} ${money(a.downPayment)} · pagamenti contratto ${money(a.contractTotal)}`;
   document.getElementById('compareBDetail').textContent = `${b.type === 'finance' ? 'Anticipo' : 'Versamento iniziale'} ${money(b.downPayment)} · pagamenti contratto ${money(b.contractTotal)}`;
   const difference = Math.abs(aMetric - bMetric);
   const verdict = document.getElementById('comparisonVerdict');
-  if (difference < 1) {
+  if (uncertainMetric) {
+    verdict.innerHTML = `<strong>Confronto incompleto:</strong> non indichiamo un vincitore perché la fonte dell’offerta B non conferma il quadro completo dei servizi inclusi ed esclusi.`;
+  } else if (difference < 1) {
     verdict.textContent = `Con la priorità scelta, le due offerte sono equivalenti. Per decidere guarda i servizi inclusi, i km contrattuali e la maxi rata.`;
   } else {
     const winner = aMetric < bMetric ? 'A' : 'B';
@@ -219,7 +223,9 @@ function renderComparison(a, b, staticOffer = null) {
   const upfrontWinner = metricWinner('downPayment');
   const totalWinner = metricWinner('totalOutlay');
   const tradeoff = document.getElementById('comparisonTradeoff');
-  if (!monthlyWinner && !upfrontWinner && !totalWinner) {
+  if (catalogServicesUnknown) {
+    tradeoff.innerHTML = `<strong>Dati verificabili:</strong> canone, anticipo, durata e chilometri. Prima di confrontare costo mensile e totale, verifica assicurazione, bollo, manutenzione e gomme dell’offerta B.`;
+  } else if (!monthlyWinner && !upfrontWinner && !totalWinner) {
     tradeoff.innerHTML = `<strong>Le due offerte sono molto simili:</strong> guarda i servizi inclusi e le condizioni finali per scegliere.`;
   } else if (monthlyWinner && monthlyWinner === upfrontWinner && monthlyWinner === totalWinner) {
     tradeoff.innerHTML = `<strong>L’offerta ${monthlyWinner} è più leggera su tutti i fronti:</strong> mese per mese, liquidità iniziale ed esborso stimato.`;
@@ -243,18 +249,22 @@ function showOfferDetails(which) {
     return;
   }
   const name = comparisonNames[which];
+  const catalogMinimum = offer.type === 'rental' && offer.includedKnown === false;
   const rows = [
     ['Rata o canone', money(offer.payment) + '/mese'],
     ['Numero di rate', String(offer.months)],
     [offer.type === 'finance' ? 'Anticipo' : 'Versamento iniziale', offer.downPayment ? money(offer.downPayment) : 'Nessuno'],
     ['Maxi rata finale', offer.finalPayment ? money(offer.finalPayment) : 'Nessuna'],
-    ['Costo mensile di guida', money(offer.monthlyTotal)],
+    [catalogMinimum ? 'Costo mensile minimo noto' : 'Costo mensile di guida', `${catalogMinimum ? 'almeno ' : ''}${money(offer.monthlyTotal)}`],
     ['Pagamenti considerati nel confronto', money(offer.contractTotal)]
   ];
   const composition = Object.entries(offer.costs)
     .filter(([, amount]) => amount > 0)
     .sort((a, b) => b[1] - a[1]);
-  details.innerHTML = `<h4>${name}: dettaglio dell'impegno</h4>${rows.map(([title, amount]) => `<div class="offer-detail-row"><span>${title}</span><strong>${amount}</strong></div>`).join('')}<h4>Dato del preventivo + costi stimati</h4>${composition.map(([key, amount]) => `<div class="offer-detail-row"><span>${label[key]} <small>${valueOrigin[key]}</small></span><strong>${money(amount)}/mese</strong></div>`).join('')}<p>${offer.type === 'finance' ? 'Se riscatti l’auto, valuta anche quanto potrebbe valere alla fine del contratto.' : 'Nel noleggio verifica sempre km inclusi, franchigie e condizioni di restituzione.'}</p>`;
+  const serviceCaveat = offer.type === 'rental' && offer.includedKnown === false
+    ? 'Il quadro completo dei servizi inclusi ed esclusi non è confermato dalla fonte: questo dettaglio mostra soltanto canone, energia e altri dati conosciuti, non un costo mensile completo.'
+    : offer.type === 'finance' ? 'Se riscatti l’auto, valuta anche quanto potrebbe valere alla fine del contratto.' : 'Nel noleggio verifica sempre km inclusi, franchigie e condizioni di restituzione.';
+  details.innerHTML = `<h4>${name}: dettaglio dell'impegno</h4>${rows.map(([title, amount]) => `<div class="offer-detail-row"><span>${title}</span><strong>${amount}</strong></div>`).join('')}<h4>Dato del preventivo + costi stimati</h4>${composition.map(([key, amount]) => `<div class="offer-detail-row"><span>${label[key]} <small>${catalogMinimum && key === 'payment' ? 'dato della fonte' : valueOrigin[key]}</small></span><strong>${money(amount)}/mese</strong></div>`).join('')}<p>${serviceCaveat}</p>`;
   details.classList.remove('hidden');
   details.dataset.open = which;
   document.querySelectorAll('.compare-card').forEach(card => card.classList.toggle('active', card.dataset.offer === which));

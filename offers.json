@@ -14,7 +14,7 @@
     "downPayment": 5000,
     "finalPayment": 0,
     "contractKm": 10000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote",
@@ -36,7 +36,7 @@
     "downPayment": 5000,
     "finalPayment": 0,
     "contractKm": 5000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "hybrid", "segment": "compact" },
     "sourceName": "Quattroruote",
@@ -58,7 +58,7 @@
     "downPayment": 4500,
     "finalPayment": 0,
     "contractKm": 10000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "hybrid", "segment": "city" },
     "sourceName": "Quattroruote",
@@ -80,7 +80,7 @@
     "downPayment": 4000,
     "finalPayment": 0,
     "contractKm": 10000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "petrol", "segment": "city" },
     "sourceName": "Quattroruote",
@@ -102,7 +102,7 @@
     "downPayment": 5000,
     "finalPayment": 0,
     "contractKm": 10000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "petrol", "segment": "compact" },
     "sourceName": "Quattroruote",
@@ -124,7 +124,7 @@
     "downPayment": 5000,
     "finalPayment": 0,
     "contractKm": 10000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote",
@@ -146,7 +146,7 @@
     "downPayment": 6000,
     "finalPayment": 0,
     "contractKm": 20000,
-    "included": [],
+    "included": [], "includedKnown": false,
     "endChoice": "return",
     "profile": { "fuel": "electric", "segment": "suv" },
     "sourceName": "Quattroruote",
@@ -163,7 +163,7 @@
     "match": ["jeep", "avenger"],
     "title": "Jeep Avenger 1.2 Turbo 100 CV Longitude — noleggio",
     "type": "rental", "payment": 325, "months": 36, "downPayment": 5000, "finalPayment": 0, "contractKm": 10000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jeep/avenger/avenger-12-turbo-100-cv-longitude-147843202410.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "36 mesi, 10.000 km/anno, anticipo €5.000 IVA inclusa. Pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
@@ -176,7 +176,7 @@
     "match": ["jeep", "avenger"],
     "title": "Jeep Avenger BEV Longitude — noleggio",
     "type": "rental", "payment": 425, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jeep/avenger/avenger-bev-longitude-147847202410.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -186,7 +186,7 @@
     "brand": "Toyota", "model": "Yaris Cross", "aliases": ["toyota yaris cross", "yaris cross"], "match": ["yaris", "cross"],
     "title": "Toyota Yaris Cross 1.5 Hybrid Active — noleggio",
     "type": "rental", "payment": 249, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/toyota/yaris-cross/yaris-cross-15-hybrid-5p-e-cvt-active-142232202401.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
@@ -196,7 +196,7 @@
     "brand": "Renault", "model": "Captur", "aliases": ["renault captur", "captur"], "match": ["renault", "captur"],
     "title": "Renault Captur TCe 115 CV Evolution — noleggio",
     "type": "rental", "payment": 268, "months": 36, "downPayment": 5000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/renault/captur/captur-tce-115-cv-evolution-156473202509.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -206,7 +206,7 @@
     "brand": "Jeep", "model": "Compass", "aliases": ["jeep compass", "compass"], "match": ["jeep", "compass"],
     "title": "Jeep Compass 1.2 Turbo 48V e-Hybrid Altitude — noleggio",
     "type": "rental", "payment": 495, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 10000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jeep/compass/compass-12-turbo-48v-e-hybrid-altitude-156552202509.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "36 mesi, 10.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -216,7 +216,7 @@
     "brand": "Renault", "model": "5 E-Tech", "aliases": ["renault 5", "renault 5 e tech", "renault 5 e-tech", "r5"], "match": ["renault", "5"],
     "title": "Renault 5 E-Tech Electric 120 CV Evolution — noleggio",
     "type": "rental", "payment": 309, "months": 60, "downPayment": 5000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/renault/5-e-tech-electric/5-120-cv-urban-range-evolution-154325202411.html",
     "checkedAtISO": "2026-08-11", "checkedAt": "11 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -226,7 +226,7 @@
     "brand": "Leapmotor", "model": "T03", "aliases": ["leapmotor t03", "t03"], "match": ["leapmotor", "t03"],
     "title": "Leapmotor T03 70 kW — noleggio",
     "type": "rental", "payment": 219, "months": 60, "downPayment": 5000, "finalPayment": 0, "contractKm": 10000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "city" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "city" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/leapmotor/t03/t03-70kw-153720202409.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "60 mesi, 10.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -236,7 +236,7 @@
     "brand": "Fiat", "model": "500", "aliases": ["fiat 500", "500 hybrid", "cinquecento"], "match": ["fiat", "500"],
     "title": "Fiat 500 Berlina Hybrid Pop — noleggio",
     "type": "rental", "payment": 239, "months": 36, "downPayment": 5000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "city" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "city" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/fiat/500/500-berlina-hybrid-pop-156826202511.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -246,7 +246,7 @@
     "brand": "Citroën", "model": "C3 Aircross", "aliases": ["citroen c3 aircross", "citroën c3 aircross", "c3 aircross"], "match": ["c3", "aircross"],
     "title": "Citroën C3 Aircross elettrica You — noleggio",
     "type": "rental", "payment": 329, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/citroen/c3-aicross/c3-aircross-motore-elettrico-113-cv-you-153185202512.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -256,7 +256,7 @@
     "brand": "Opel", "model": "Frontera-e", "aliases": ["opel frontera e", "opel frontera-e", "frontera e", "frontera-e"], "match": ["opel", "frontera"],
     "title": "Opel Frontera-e 113 CV GS — noleggio",
     "type": "rental", "payment": 394, "months": 60, "downPayment": 5000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/opel/frontera-e/frontera-e-113-cv-gs-153158202406.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -266,7 +266,7 @@
     "brand": "Nissan", "model": "Qashqai", "aliases": ["nissan qashqai", "qashqai"], "match": ["nissan", "qashqai"],
     "title": "Nissan Qashqai e-Power N-Connecta - noleggio",
     "type": "rental", "payment": 349, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 10000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/nissan/qashqai/qashqai-e-power-n-connecta-145613202406.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "36 mesi, 10.000 km/anno, anticipo €6.000 IVA inclusa. La pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
@@ -276,7 +276,7 @@
     "brand": "Jaecoo", "model": "7 Super Hybrid", "aliases": ["jaecoo 7", "jaecoo 7 super hybrid", "jaecoo"], "match": ["jaecoo", "7"],
     "title": "Jaecoo 7 Super Hybrid 1.5 TGDI SHS-H Pure - noleggio",
     "type": "rental", "payment": 539, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jaecoo/jaecoo-7-super-hybrid/jaecoo-7-15-tgdi-shs-h-pure-157478202602.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -286,7 +286,7 @@
     "brand": "Tesla", "model": "Model Y", "aliases": ["tesla model y", "model y", "tesla"], "match": ["tesla", "model y"],
     "title": "Tesla Model Y RWD Standard - noleggio",
     "type": "rental", "payment": 545, "months": 60, "downPayment": 8000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "large" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "large" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/tesla/model-y/model-y-rwd-standard-156609202510.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €8.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -296,7 +296,7 @@
     "brand": "Mercedes", "model": "CLA EQ", "aliases": ["mercedes cla eq", "cla eq", "mercedes cla"], "match": ["mercedes", "cla"],
     "title": "Mercedes CLA 200 EQ Advanced - noleggio",
     "type": "rental", "payment": 489, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "large" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "large" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mercedes/cla-eq/cla-200-eq-advanced-156617202510.html",
     "checkedAtISO": "2026-08-12", "checkedAt": "12 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -306,7 +306,7 @@
     "brand": "Hyundai", "model": "Tucson", "aliases": ["hyundai tucson", "tucson"], "match": ["hyundai", "tucson"],
     "title": "Hyundai Tucson 1.6 CRDi 48V DCT Business - noleggio",
     "type": "rental", "payment": 383, "months": 48, "downPayment": 6000, "finalPayment": 0, "contractKm": 25000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "diesel", "segment": "large" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "diesel", "segment": "large" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/hyundai/tucson-3-serie/tucson-16-crdi-48v-dct-business-152526202405.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "48 mesi, 25.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -316,7 +316,7 @@
     "brand": "Volkswagen", "model": "T-Roc", "aliases": ["volkswagen t roc", "volkswagen t-roc", "t roc", "t-roc"], "match": ["volkswagen", "t roc"],
     "title": "Volkswagen T-Roc 1.5 eTSI ACT DSG Life - noleggio",
     "type": "rental", "payment": 394, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/volkswagen/t-roc/t-roc-15-etsi-act-dsg-life-156426202509.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -326,7 +326,7 @@
     "brand": "Volkswagen", "model": "Golf", "aliases": ["volkswagen golf", "golf"], "match": ["volkswagen", "golf"],
     "title": "Volkswagen Golf 2.0 TDI 150 CV DSG Edition Plus - noleggio",
     "type": "rental", "payment": 448, "months": 49, "downPayment": 6000, "finalPayment": 0, "contractKm": 10000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "diesel", "segment": "compact" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "diesel", "segment": "compact" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/volkswagen/golf/golf-20-tdi-150-cv-dsg-scr-editon-plus-151725202402.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "49 mesi, 10.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -336,7 +336,7 @@
     "brand": "Volkswagen", "model": "Tiguan", "aliases": ["volkswagen tiguan", "tiguan"], "match": ["volkswagen", "tiguan"],
     "title": "Volkswagen Tiguan 1.5 TSI eHybrid DSG Edition Plus - noleggio",
     "type": "rental", "payment": 559, "months": 36, "downPayment": 6000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "large" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/volkswagen/tiguan/tiguan-15-tsi-ehybrid-dsg-edition-plus-151775202402.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €6.000 IVA inclusa. La pagina fonte indicava esaurimento scorte: disponibilità e servizi inclusi da verificare con il fornitore."
@@ -346,7 +346,7 @@
     "brand": "Jaecoo", "model": "5", "aliases": ["jaecoo 5", "jaecoo"], "match": ["jaecoo", "5"],
     "title": "Jaecoo 5 1.6 TGDI 147 CV aut. Pure - noleggio",
     "type": "rental", "payment": 369, "months": 36, "downPayment": 5000, "finalPayment": 0, "contractKm": 30000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "petrol", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/jaecoo/jaecoo-5/jaecoo-5-16-tgdi-147-cv-aut-pure-156408202509.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "36 mesi, 30.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -356,7 +356,7 @@
     "brand": "MG", "model": "MG3", "aliases": ["mg3", "mg mg3", "mg 3"], "match": ["mg", "mg3"],
     "title": "MG MG3 1.5 Hybrid+ Luxury - noleggio",
     "type": "rental", "payment": 279, "months": 60, "downPayment": 4880, "finalPayment": 0, "contractKm": 50000, "kmUnit": "total",
-    "included": ["insurance", "maintenance"], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "compact" },
+    "included": ["insurance", "maintenance"], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "compact" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mg-3-hybrid-.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "60 mesi, 50.000 km complessivi, anticipo €4.880 IVA inclusa. La fonte indica manutenzione, Kasko, furto/incendio, RCA e assistenza inclusi; proposta riservata a nuovi clienti o rinnovi Ayvens e soggetta ad approvazione."
@@ -366,7 +366,7 @@
     "brand": "MG", "model": "ZS", "aliases": ["mg zs", "zs hybrid", "mg"], "match": ["mg", "zs"],
     "title": "MG ZS 1.5 Hybrid+ Luxury - noleggio",
     "type": "rental", "payment": 297, "months": 49, "downPayment": 5000, "finalPayment": 0, "contractKm": 10000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/mg/zs/zs-15-hybrid-plus-luxury-154497202410.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "49 mesi, 10.000 km/anno, anticipo €5.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -376,7 +376,7 @@
     "brand": "BYD", "model": "Dolphin", "aliases": ["byd dolphin", "dolphin", "byd"], "match": ["byd", "dolphin"],
     "title": "BYD Dolphin 60,4 kWh Design - noleggio",
     "type": "rental", "payment": 377, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/byd/dolphin/dolphin-604-kwh-design-149660202306.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -386,7 +386,7 @@
     "brand": "Renault", "model": "Megane E-Tech", "aliases": ["renault megane e tech", "renault megane e-tech", "megane e tech", "megane elettrica"], "match": ["renault", "megane"],
     "title": "Renault Megane E-Tech Electric 220 CV Techno - noleggio",
     "type": "rental", "payment": 299, "months": 25, "downPayment": 6000, "finalPayment": 0, "contractKm": 50000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "electric", "segment": "compact" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/renault/megane-e-tech-electric/megane-220-cv-comfort-range-ac11-techno-155497202504.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "25 mesi, 50.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
@@ -396,7 +396,7 @@
     "brand": "BYD", "model": "Atto 2 DM-i", "aliases": ["byd atto 2", "atto 2", "byd atto"], "match": ["byd", "atto"],
     "title": "BYD Atto 2 DM-i 1.5 165 CV Active - noleggio",
     "type": "rental", "payment": 395, "months": 60, "downPayment": 6000, "finalPayment": 0, "contractKm": 20000,
-    "included": [], "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
+    "included": [], "includedKnown": false, "endChoice": "return", "profile": { "fuel": "hybrid", "segment": "suv" },
     "sourceName": "Quattroruote", "sourceUrl": "https://www.quattroruote.it/noleggio-lungo-termine/byd/atto-2-dm-i/atto-2-dm-i-15-165-cv-phev-active-156725202510.html",
     "checkedAtISO": "2026-08-13", "checkedAt": "13 agosto 2026",
     "conditions": "60 mesi, 20.000 km/anno, anticipo €6.000 IVA inclusa. Servizi inclusi da verificare con il fornitore."
