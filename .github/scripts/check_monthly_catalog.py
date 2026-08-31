@@ -9,9 +9,23 @@ ROOT = Path(__file__).resolve().parents[2]
 REPORT_PATH = ROOT / "catalog-monthly-report.md"
 CSV_PATH = ROOT / "catalog-monthly-review.csv"
 
-def variants(value):
-    value = int(value or 0)
-    return set() if not value else {str(value), f"{value:,}".replace(",", "."), f"{value:,}".replace(",", " ")}
+def parse_number(value):
+    digits = re.sub(r"\D", "", value or "")
+    return int(digits) if digits else None
+
+
+def extract_terms(text):
+    patterns = {
+        "payment": r"rata mensile\s*€?\s*([\d.\s]+?)(?=\s*(?:iva|km/anno))",
+        "contractKm": r"km/anno\s*([\d.\s]+?)(?=\s*durata)",
+        "months": r"durata\s*(\d+)\s*mesi",
+        "downPayment": r"anticipo\s*€?\s*([\d.\s]+?)(?=\s*(?:iva|dimensioni|$))",
+    }
+    terms = {}
+    for field, pattern in patterns.items():
+        match = re.search(pattern, text, flags=re.I)
+        terms[field] = parse_number(match.group(1)) if match else None
+    return terms
 
 def fetch_text(url):
     result = subprocess.run(["curl", "--location", "--fail", "--silent", "--show-error", "--compressed",
@@ -29,13 +43,17 @@ def inspect_offer(offer):
         text = fetch_text(offer["sourceUrl"])
     except (RuntimeError, TimeoutError, KeyError) as error:
         return result | {"state": "errore", "detail": f"Fonte non raggiungibile: {type(error).__name__}."}
-    checks = {"rata": any(x in text for x in variants(offer.get("payment"))),
-        "durata": any(x in text for x in variants(offer.get("months"))),
-        "anticipo": offer.get("downPayment", 0) == 0 or any(x in text for x in variants(offer.get("downPayment"))),
-        "km": any(x in text for x in variants(offer.get("contractKm")))}
-    missing = [key for key, found in checks.items() if not found]
-    if missing:
-        return result | {"state": "da_rivedere", "detail": "Non trovati nella pagina: " + ", ".join(missing) + "."}
+    source_terms = extract_terms(text)
+    labels = {"payment": "rata", "months": "durata", "downPayment": "anticipo", "contractKm": "km/anno"}
+    unreadable = [labels[key] for key, value in source_terms.items() if value is None]
+    if unreadable:
+        return result | {"state": "da_rivedere", "detail": "Impossibile leggere dalla sezione condizioni: " + ", ".join(unreadable) + "."}
+    changed = [
+        f"{labels[key]} {offer.get(key)} → {source_terms[key]}"
+        for key in source_terms if int(offer.get(key, 0)) != source_terms[key]
+    ]
+    if changed:
+        return result | {"state": "da_rivedere", "detail": "Valori cambiati nella fonte: " + "; ".join(changed) + "."}
     return result | {"state": "coerente", "detail": "Rata, durata, anticipo e km ancora visibili nella fonte."}
 
 def write_report(results, catalog_date):
