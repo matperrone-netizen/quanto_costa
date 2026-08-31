@@ -1,0 +1,47 @@
+name: Controllo mensile catalogo
+
+on:
+  schedule:
+    - cron: '17 9 5 * *'
+      timezone: 'Europe/Rome'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+      - name: Controlla le fonti
+        id: catalog
+        run: python .github/scripts/check_monthly_catalog.py
+      - name: Salva il report
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalogo-${{ github.run_id }}
+          path: catalog-monthly-report.md
+          retention-days: 90
+      - name: Crea issue di revisione
+        id: issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          issue_url=$(gh issue create --title "Controllo catalogo $(date +%Y-%m-%d) — ${{ steps.catalog.outputs.review_count }} da rivedere" --body-file catalog-monthly-report.md)
+          echo "url=$issue_url" >> "$GITHUB_OUTPUT"
+      - name: Invia email
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_EMAIL: mat.perrone@gmail.com
+          ISSUE_URL: ${{ steps.issue.outputs.url }}
+        run: |
+          python - <<'PY'
+          import importlib.util, os
+          spec = importlib.util.spec_from_file_location("catalog", ".github/scripts/check_monthly_catalog.py")
+          module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+          module.send_mail([None] * int("${{ steps.catalog.outputs.review_count }}"), os.environ.get("ISSUE_URL"))
+          PY

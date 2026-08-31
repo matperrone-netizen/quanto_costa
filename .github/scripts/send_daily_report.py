@@ -103,8 +103,18 @@ def main():
     zone_id = required("CLOUDFLARE_ZONE_ID")
     password = required("GMAIL_APP_PASSWORD")
     recipient = required("REPORT_EMAIL")
-    visits, requests = cloudflare_visits(token, zone_id)
-    activities = activity_counts(token, os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip())
+    warnings = []
+    try:
+        visits, requests = cloudflare_visits(token, zone_id)
+        traffic_section = f"Visite Cloudflare: {visits}\nRichieste HTTP: {requests}"
+    except Exception as error:
+        traffic_section = "Visite e richieste: dati temporaneamente non disponibili."
+        warnings.append(f"Traffico Cloudflare: {type(error).__name__}: {error}")
+    try:
+        activities = activity_counts(token, os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip())
+    except Exception as error:
+        activities = None
+        warnings.append(f"Attività anonime: {type(error).__name__}: {error}")
     catalog = catalog_status()
     now = datetime.now(ZoneInfo("Europe/Rome"))
     subject = f"Costo Vero — report del {now:%d/%m/%Y}"
@@ -119,16 +129,19 @@ def main():
     if catalog["stale"] or catalog["invalid"]:
         needs_review = catalog["stale"] + catalog["invalid"]
         catalog_section = f"ATTENZIONE: catalogo da aggiornare ({len(needs_review)} offerte).\n- " + "\n- ".join(needs_review)
+    warning_section = ""
+    if warnings:
+        warning_section = "\nAvvisi tecnici (il report è arrivato comunque):\n- " + "\n- ".join(warnings) + "\n"
     body = f"""Ciao,
 
 Report Costo Vero — ultime 24 ore circa
 
-Visite Cloudflare: {visits}
-Richieste HTTP: {requests}
+{traffic_section}
 
 {activity_section}
 
 {catalog_section}
+{warning_section}
 
 Il sito è online su https://costo-vero.it.
 """
