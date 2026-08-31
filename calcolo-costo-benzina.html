@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Calcola il costo della benzina per un viaggio o tragitto: inserisci chilometri, consumo, prezzo al litro, andata e ritorno e pedaggio." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#4f46e5" />
+    <link rel="canonical" href="https://costo-vero.it/calcolo-costo-benzina" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20260831-3" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:site_name" content="Costo Vero" />
+    <meta property="og:title" content="Calcolo costo benzina per viaggio e tragitto" />
+    <meta property="og:description" content="Scopri litri necessari, costo totale e costo al chilometro con i dati reali della tua auto." />
+    <meta property="og:url" content="https://costo-vero.it/calcolo-costo-benzina" />
+    <title>Calcolo costo benzina viaggio e al km | Costo Vero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" /></noscript>
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Calcolo costo benzina","url":"https://costo-vero.it/calcolo-costo-benzina","applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"it-IT","isAccessibleForFree":true,"description":"Calcolatore gratuito del costo del carburante per viaggio, tragitto e chilometro."},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Costo Vero","item":"https://costo-vero.it/"},{"@type":"ListItem","position":2,"name":"Guide auto","item":"https://costo-vero.it/guide-auto"},{"@type":"ListItem","position":3,"name":"Calcolo costo benzina","item":"https://costo-vero.it/calcolo-costo-benzina"}]}]}</script>
+  </head>
+  <body>
+    <main class="article-page">
+      <nav class="article-nav" aria-label="Navigazione"><a href="/">← Costo Vero</a><a href="/guide-auto">Tutte le guide</a></nav>
+      <header class="article-header"><p class="eyebrow">Calcolatore gratuito</p><h1>Calcola il costo della benzina per il tuo viaggio.</h1><p class="article-lead">Inserisci distanza, consumo reale e prezzo al litro. Vedrai subito quanti litri servono, quanto spendi e il costo del carburante per chilometro.</p></header>
+      <form id="tripCalculator" class="calculator trip-calculator">
+        <div class="form-grid">
+          <label>Distanza del tragitto <div class="input-wrap"><input id="tripKm" type="number" min="0.1" step="0.1" value="100" inputmode="decimal" required /><span>km</span></div></label>
+          <label>Consumo dell’auto <div class="input-wrap"><input id="tripConsumption" type="number" min="0.1" step="0.1" value="6" inputmode="decimal" required /><span>l/100 km</span></div></label>
+          <label>Prezzo del carburante <div class="input-wrap"><input id="tripPrice" type="number" min="0.01" step="0.01" value="1.85" inputmode="decimal" required /><span>€/l</span></div><small class="field-help">Modifica il valore usando il prezzo che paghi oggi.</small></label>
+          <label>Pedaggio totale, facoltativo <div class="input-wrap"><input id="tripToll" type="number" min="0" step="0.01" value="0" inputmode="decimal" /><span>€</span></div></label>
+        </div>
+        <label class="trip-return"><input id="tripReturn" type="checkbox" /> Calcola anche il ritorno sulla stessa distanza</label>
+        <button id="tripCalculate" type="submit">Calcola il costo del viaggio <span aria-hidden="true">→</span></button>
+      </form>
+      <section id="tripResult" class="trip-result" aria-live="polite">
+        <p class="eyebrow">Risultato</p><h2>Il carburante costa circa <strong id="tripFuelCost">11,10 €</strong>.</h2>
+        <div class="summary-grid"><article><span>Distanza totale</span><strong id="tripTotalKm">100 km</strong></article><article><span>Carburante necessario</span><strong id="tripLiters">6,0 l</strong></article><article><span>Costo per chilometro</span><strong id="tripCostKm">0,11 €/km</strong></article></div>
+        <p id="tripTotal" class="trip-total">Totale viaggio con eventuale pedaggio: <strong>11,10 €</strong></p>
+      </section>
+      <article class="article-body">
+        <h2>Formula per calcolare il costo della benzina</h2>
+        <p>Il calcolo usa una formula semplice: <strong>chilometri × consumo in litri ogni 100 km ÷ 100 × prezzo al litro</strong>. Un tragitto di 100 km con un consumo di 6 l/100 km richiede 6 litri. Con benzina a 1,85 €/l, il carburante costa 11,10 €.</p>
+        <p>Per un viaggio di andata e ritorno seleziona l’opzione dedicata: la distanza viene raddoppiata. Il pedaggio resta invece quello totale inserito da te, così puoi usare direttamente l’importo previsto per entrambe le tratte.</p>
+        <h2>Quale consumo bisogna inserire?</h2>
+        <p>Il valore più utile è il consumo medio reale mostrato dal computer di bordo negli ultimi viaggi. Il dato dichiarato dal costruttore può essere un punto di partenza, ma traffico, velocità, temperatura, carico e stile di guida cambiano il risultato. Se la tua auto mostra km/l, puoi ottenere i litri per 100 km dividendo 100 per quel valore: 16 km/l corrispondono a circa 6,25 l/100 km.</p>
+        <h2>Dal singolo viaggio al costo mensile dell’auto</h2>
+        <p>Il carburante è solo una parte del costo reale. Per capire quanto pesa un’auto sul budget bisogna aggiungere rata o canone, assicurazione, bollo, manutenzione, gomme, parcheggio ed eventuali anticipo e maxi rata. Il calcolatore principale riunisce queste voci senza nasconderle in una sola media.</p>
+        <section class="article-cta"><h2>Vuoi stimare tutto il costo dell’auto?</h2><p>Parti dai tuoi chilometri annui e aggiungi rata, anticipo e costi ricorrenti.</p><a href="/#calculator">Calcola il costo reale mensile</a></section>
+        <section class="faq" aria-label="Domande frequenti"><h2>Domande frequenti</h2><details><summary>Come calcolo il costo della benzina al km?</summary><p>Dividi il costo totale del carburante per i chilometri percorsi. Il calcolatore mostra automaticamente questo valore senza includere il pedaggio.</p></details><details><summary>Il prezzo inserito viene aggiornato automaticamente?</summary><p>No. Il prezzo è modificabile perché varia per zona, distributore e giorno. Inserisci quello visibile alla pompa per ottenere una stima coerente.</p></details><details><summary>Posso usarlo anche per il diesel?</summary><p>Sì. La formula è identica: cambia il prezzo al litro e inserisci il consumo reale della tua auto diesel.</p></details></section>
+      </article>
+    </main>
+    <footer><span>© 2026 Costo Vero · Un aiuto per scegliere, non un preventivo.</span><nav aria-label="Informazioni"><a href="/guide-auto">Guide</a><a href="/chi-siamo">Chi siamo</a><a href="/come-calcoliamo-costo-auto">Metodo</a><a href="/privacy">Privacy</a></nav></footer>
+    <script src="trip-calculator.js?v=20260831-2"></script>
+  </body>
+</html>

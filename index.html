@@ -21,8 +21,9 @@
     <title>Costo Vero | Quanto costa davvero la tua auto?</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=20260814-4" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" /><noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" /></noscript></noscript>
+    <link rel="stylesheet" href="styles.css?v=20260831-3" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -53,7 +54,7 @@
         <ul class="trust-strip" aria-label="Punti di fiducia"><li>✓ Nessun account o email</li><li>✓ Anticipo e maxi rata separati</li><li>✓ Fonti visibili nel catalogo</li></ul>
       </section>
 
-      <section id="calculator" class="calculator" aria-label="Calcolatore costo auto">
+      <form id="calculator" class="calculator" aria-label="Calcolatore costo auto">
         <div class="step-heading">
           <span class="step-number">1</span>
           <div><h2>Che proposta hai ricevuto?</h2><p>Partiamo da quello che sai già. Ti bastano rata, durata e anticipo.</p></div>
@@ -65,8 +66,8 @@
         </div>
 
         <div class="form-grid main-fields">
-          <label>Rata o canone mensile <span class="required">*</span><div class="input-wrap"><input id="monthlyPayment" type="number" min="0" value="299" inputmode="decimal" /><span>€</span></div></label>
-          <label>Numero di rate mensili <span class="required">*</span><div class="input-wrap"><input id="duration" type="number" min="1" value="36" inputmode="numeric" /><span>rate</span></div><small class="field-help">Es. “35 rate + maxi rata”.</small></label>
+          <label>Rata o canone mensile <span class="required">*</span><div class="input-wrap"><input id="monthlyPayment" type="number" min="0" value="299" inputmode="decimal" required /><span>€</span></div></label>
+          <label>Numero di rate mensili <span class="required">*</span><div class="input-wrap"><input id="duration" type="number" min="1" value="36" inputmode="numeric" required /><span>rate</span></div><small class="field-help">Es. “35 rate + maxi rata”.</small></label>
           <label id="downPaymentLabel">Anticipo <div class="input-wrap"><input id="downPayment" type="text" value="4.500" inputmode="numeric" /><span>€</span></div><small class="field-help">Pagamento separato dalla rata.</small></label>
           <label class="finance-only">Maxi rata finale <div class="input-wrap"><input id="finalPayment" type="text" value="0" inputmode="numeric" /><span>€</span></div><small class="field-help">Non entra nel costo mensile.</small></label>
         </div>
@@ -124,8 +125,8 @@
         </section>
 
         <p id="formError" class="form-error hidden" role="alert"></p>
-        <button id="calculate" type="button">Scopri il costo reale <span aria-hidden="true">→</span></button>
-      </section>
+        <button id="calculate" type="submit">Scopri il costo reale <span aria-hidden="true">→</span></button>
+      </form>
 
       <section id="results" class="results hidden" aria-live="polite">
         <p class="eyebrow">La tua stima</p>
@@ -195,6 +196,7 @@
         <p class="guide-link"><a href="/noleggio-o-finanziamento">Noleggio o finanziamento: cosa conviene davvero? <span aria-hidden="true">→</span></a></p>
         <p class="guide-link"><a href="/maxi-rata-finale">Maxi rata finale: come valutarla prima di firmare <span aria-hidden="true">→</span></a></p>
         <p class="guide-link"><a href="/quanto-costa-auto-al-mese">Quanto costa davvero un'auto al mese? <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/calcolo-costo-benzina">Calcola il costo della benzina per viaggio e chilometro <span aria-hidden="true">→</span></a></p>
         <p class="guide-link"><a href="/offerte-auto-noleggio">Offerte auto nel catalogo: confrontale oltre la rata <span aria-hidden="true">→</span></a></p>
         <p class="guide-link"><a href="/noleggio-auto-economico">Auto a noleggio economiche: cosa controllare oltre i 250 €/mese <span aria-hidden="true">→</span></a></p>
         <p class="guide-link"><a href="/km-extra-noleggio-auto">Km extra nel noleggio: il costo che la rata non mostra <span aria-hidden="true">→</span></a></p>
@@ -225,6 +227,6 @@
       </article>
     </main>
     <footer><span>© 2026 Costo Vero · Un aiuto per scegliere, non un preventivo.</span><nav aria-label="Informazioni"><a href="/guide-auto">Guide</a><a href="/chi-siamo">Chi siamo</a><a href="/come-calcoliamo-costo-auto">Metodo</a><a href="/privacy">Privacy</a></nav></footer>
-    <script src="app.js?v=20260814-5"></script>
+    <script src="app.js?v=20260831-2"></script>
   </body>
 </html>

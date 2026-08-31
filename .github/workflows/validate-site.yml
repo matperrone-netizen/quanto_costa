@@ -1,0 +1,27 @@
+name: Valida sito
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - 'sitemap.xml'
+      - 'functions/**'
+      - 'site-check.ps1'
+      - '.github/scripts/test_activity.mjs'
+      - '.github/workflows/validate-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Controlla pagine, sitemap e link
+        shell: pwsh
+        run: ./site-check.ps1
+      - name: Testa la raccolta eventi
+        run: node .github/scripts/test_activity.mjs

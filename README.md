@@ -27,6 +27,15 @@ Il flusso MVP è volutamente semplice: una revisione mensile delle fonti autoriz
 
 Prima della pubblicazione, `catalog-check.ps1` controlla automaticamente i campi obbligatori e segnala offerte non verificate da oltre 45 giorni. Per il primo catalogo conviene usare poche offerte complete provenienti da pagine ufficiali o fonti che ne consentono la consultazione, non uno scraping indiscriminato di siti terzi.
 
+`site-check.ps1` verifica inoltre tutte le pagine HTML prima del deploy: title, description, canonical, H1, JSON-LD, corrispondenza con la sitemap e collegamenti interni. `publish-seo.ps1` esegue entrambi i controlli e include automaticamente ogni file HTML, evitando che una nuova guida resti esclusa dalla pubblicazione.
+
+Per eseguire i controlli locali su Windows:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\site-check.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\catalog-check.ps1
+```
+
 ## Report quotidiano
 
 Il workflow `.github/workflows/daily-report.yml` invia alle 20:00 ora italiana un report delle metriche aggregate Cloudflare. I secret `GMAIL_APP_PASSWORD`, `CLOUDFLARE_ANALYTICS_TOKEN` e `CLOUDFLARE_ZONE_ID` vanno inseriti solo nella sezione GitHub Secrets: non devono mai finire nei file del repository.

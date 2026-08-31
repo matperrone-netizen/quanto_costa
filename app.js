@@ -95,13 +95,18 @@ function restoreDraft() {
 }
 
 let staticOffers = [];
-const offersReady = fetch('offers.json?v=20260814-1', { cache: 'no-cache' })
-  .then(response => response.ok ? response.json() : [])
-  .then(catalog => {
-    staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []);
-    populateModelSuggestions();
-  })
-  .catch(() => { staticOffers = []; });
+let offersPromise = null;
+function loadOffers() {
+  if (offersPromise) return offersPromise;
+  offersPromise = fetch('offers.json?v=20260831-1')
+    .then(response => response.ok ? response.json() : [])
+    .then(catalog => {
+      staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []);
+      populateModelSuggestions();
+    })
+    .catch(() => { staticOffers = []; });
+  return offersPromise;
+}
 
 function value(id) {
   const input = document.getElementById(id);
@@ -271,7 +276,7 @@ function showOfferDetails(which) {
 }
 
 async function calculate() {
-  await offersReady;
+  await loadOffers();
   document.querySelectorAll('[data-money-input]').forEach(formatThousands);
   const formError = document.getElementById('formError');
   const invalidField = (message, fieldId) => {
@@ -479,8 +484,12 @@ document.getElementById('proposalTypeB').addEventListener('change', updateSecond
   formatThousands(input);
 });
 document.getElementById('hasOfferB').addEventListener('change', toggleOfferB);
+document.getElementById('carModel').addEventListener('focus', loadOffers, { once: true });
 document.querySelectorAll('.compare-card').forEach(card => card.addEventListener('click', () => showOfferDetails(card.dataset.offer)));
-document.getElementById('calculate').addEventListener('click', calculate);
+document.getElementById('calculator').addEventListener('submit', event => {
+  event.preventDefault();
+  calculate();
+});
 document.getElementById('toggleDetails').addEventListener('click', () => document.querySelector('.second-step').scrollIntoView({ behavior: 'smooth', block: 'start' }));
 document.getElementById('shareResult').addEventListener('click', shareResult);
 document.getElementById('copyQuestions').addEventListener('click', copyQuestions);
