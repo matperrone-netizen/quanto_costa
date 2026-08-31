@@ -4,6 +4,7 @@ import os
 import re
 import smtplib
 import ssl
+import subprocess
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -35,12 +36,15 @@ def contains_any(text, values):
 
 
 def fetch_text(url):
-    request = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (compatible; CostoVeroCatalogMonitor/1.0; +https://costo-vero.it/chi-siamo)",
-        "Accept": "text/html,application/xhtml+xml",
-    })
-    with urllib.request.urlopen(request, timeout=35) as response:
-        return response.status, compact_text(response.read().decode("utf-8", errors="replace"))
+    result = subprocess.run(
+        ["curl", "--location", "--fail", "--silent", "--show-error", "--compressed",
+         "--max-time", "35", "--user-agent", "Mozilla/5.0", url],
+        capture_output=True, check=False,
+    )
+    if result.returncode:
+        detail = result.stderr.decode("utf-8", errors="replace").strip()
+        raise RuntimeError(detail or f"curl terminato con codice {result.returncode}")
+    return 200, compact_text(result.stdout.decode("utf-8", errors="replace"))
 
 
 def inspect_offer(offer):
@@ -48,10 +52,7 @@ def inspect_offer(offer):
     try:
         status, text = fetch_text(offer["sourceUrl"])
         result["http"] = status
-    except urllib.error.HTTPError as error:
-        result.update(state="errore", detail=f"Fonte non raggiungibile: HTTP {error.code}.")
-        return result
-    except (urllib.error.URLError, TimeoutError, KeyError) as error:
+    except (RuntimeError, TimeoutError, KeyError) as error:
         result.update(state="errore", detail=f"Fonte non raggiungibile: {type(error).__name__}.")
         return result
 
