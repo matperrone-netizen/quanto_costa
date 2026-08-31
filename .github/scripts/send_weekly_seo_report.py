@@ -1,9 +1,12 @@
 import json
 import os
+import re
 import smtplib
 import ssl
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from email.message import EmailMessage
 from zoneinfo import ZoneInfo
@@ -13,6 +16,7 @@ from google.oauth2 import service_account
 
 SCOPE = "https://www.googleapis.com/auth/webmasters.readonly"
 PROPERTY = os.environ.get("SEARCH_CONSOLE_PROPERTY", "sc-domain:costo-vero.it")
+USER_AGENT = "Mozilla/5.0 (compatible; CostoVeroSEOMonitor/1.0; +https://costo-vero.it)"
 
 
 def required(name):
@@ -23,13 +27,49 @@ def required(name):
 
 
 def access_token():
+    raw = os.environ.get("GOOGLE_SEARCH_CONSOLE_CREDENTIALS", "").strip()
+    if not raw:
+        return None
     try:
-        info = json.loads(required("GOOGLE_SEARCH_CONSOLE_CREDENTIALS"))
+        info = json.loads(raw)
     except json.JSONDecodeError as error:
         raise RuntimeError("GOOGLE_SEARCH_CONSOLE_CREDENTIALS non contiene JSON valido") from error
     credentials = service_account.Credentials.from_service_account_info(info, scopes=[SCOPE])
     credentials.refresh(Request())
     return credentials.token
+
+
+def inspect_public_page(url):
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            body = response.read().decode("utf-8", errors="replace")
+            status = response.status
+    except Exception as error:
+        return f"{url} — non raggiungibile ({type(error).__name__})"
+    if status != 200:
+        return f"{url} — HTTP {status}"
+    canonical = re.search(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', body, re.I)
+    if not canonical:
+        canonical = re.search(r'<link[^>]+href=["\']([^"\']+)["\'][^>]+rel=["\']canonical["\']', body, re.I)
+    if not canonical:
+        return f"{url} — canonical mancante"
+    expected = url.rstrip("/") or "https://costo-vero.it"
+    if canonical.group(1).rstrip("/") != expected:
+        return f"{url} — canonical diverso: {canonical.group(1)}"
+    if re.search(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\'][^"\']*noindex', body, re.I):
+        return f"{url} — noindex inatteso"
+    return None
+
+
+def technical_health():
+    sitemap_request = urllib.request.Request("https://costo-vero.it/sitemap.xml", headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(sitemap_request, timeout=20) as response:
+        root = ET.fromstring(response.read())
+    urls = [node.text for node in root.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        errors = [error for error in pool.map(inspect_public_page, urls) if error]
+    return len(urls), errors
 
 
 def query(token, start, end, dimensions=None, limit=10):
@@ -86,20 +126,13 @@ def main():
     current_start = current_end - timedelta(days=27)
     previous_end = current_start - timedelta(days=1)
     previous_start = previous_end - timedelta(days=27)
-    current = totals(query(token, current_start, current_end))
-    previous = totals(query(token, previous_start, previous_end))
-    queries = query(token, current_start, current_end, ["query"], 10)
-    pages = query(token, current_start, current_end, ["page"], 10)
-
-    recipient = required("REPORT_EMAIL")
-    password = required("GMAIL_APP_PASSWORD")
-    now = datetime.now(ZoneInfo("Europe/Rome"))
-    body = f"""Ciao,
-
-Report SEO settimanale Costo Vero
-Periodo: {current_start:%d/%m/%Y}–{current_end:%d/%m/%Y}, confrontato con i 28 giorni precedenti.
-
-RISULTATO GENERALE
+    checked_urls, technical_errors = technical_health()
+    if token:
+        current = totals(query(token, current_start, current_end))
+        previous = totals(query(token, previous_start, previous_end))
+        queries = query(token, current_start, current_end, ["query"], 10)
+        pages = query(token, current_start, current_end, ["page"], 10)
+        search_section = f"""RISULTATO SEARCH CONSOLE
 - Clic: {int(current['clicks'])} ({change(current, previous, 'clicks')})
 - Impression: {int(current['impressions'])} ({change(current, previous, 'impressions')})
 - CTR: {decimal(current['ctr']*100)}% (prima {decimal(previous['ctr']*100)}%)
@@ -109,7 +142,24 @@ QUERY PRINCIPALI
 {format_rows(queries, 'query')}
 
 PAGINE PRINCIPALI
-{format_rows(pages, 'page')}
+{format_rows(pages, 'page')}"""
+    else:
+        search_section = "SEARCH CONSOLE\n- Collegamento non ancora configurato: il controllo tecnico è comunque attivo."
+    health_section = f"CONTROLLO TECNICO\n- URL sitemap controllati: {checked_urls}\n- Errori: {len(technical_errors)}"
+    if technical_errors:
+        health_section += "\n- " + "\n- ".join(technical_errors[:20])
+
+    recipient = required("REPORT_EMAIL")
+    password = required("GMAIL_APP_PASSWORD")
+    now = datetime.now(ZoneInfo("Europe/Rome"))
+    body = f"""Ciao,
+
+Report SEO settimanale Costo Vero
+Periodo: {current_start:%d/%m/%Y}–{current_end:%d/%m/%Y}, confrontato con i 28 giorni precedenti.
+
+{health_section}
+
+{search_section}
 
 Come leggerlo: più impression indicano maggiore visibilità; CTR e posizione aiutano a capire quali pagine migliorare. Search Console può omettere query rare o anonimizzate.
 
