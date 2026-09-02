@@ -28,6 +28,10 @@ const fuelCalculation = await invoke({ body: '{"event":"fuel_calculation"}' });
 assert.equal(fuelCalculation.response.status, 204);
 assert.deepEqual(fuelCalculation.points, [{ blobs: ['fuel_calculation'], doubles: [], indexes: [] }]);
 
+const mortgageCalculation = await invoke({ body: '{"event":"mortgage_calculation"}' });
+assert.equal(mortgageCalculation.response.status, 204);
+assert.deepEqual(mortgageCalculation.points, [{ blobs: ['mortgage_calculation'], doubles: [], indexes: [] }]);
+
 for (const test of [
   { input: { origin: null }, status: 403 },
   { input: { origin: 'https://example.com' }, status: 403 },
@@ -42,4 +46,4 @@ for (const test of [
   assert.equal(result.response.headers.get('Cache-Control'), 'no-store');
 }
 
-console.log('Activity endpoint: 8 casi superati.');
+console.log('Activity endpoint: 9 casi superati.');

@@ -1,4 +1,4 @@
-const allowedEvents = new Set(['calculation', 'comparison', 'share', 'checklist', 'fuel_calculation']);
+const allowedEvents = new Set(['calculation', 'comparison', 'share', 'checklist', 'fuel_calculation', 'mortgage_calculation']);
 const responseHeaders = { 'Cache-Control': 'no-store' };
 
 function emptyResponse(status) {
