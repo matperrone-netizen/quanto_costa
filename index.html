@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" /><noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" /></noscript></noscript>
-    <link rel="stylesheet" href="styles.css?v=20260902-2" />
+    <link rel="stylesheet" href="styles.css?v=20260902-3" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -46,6 +46,7 @@
   </head>
   <body>
     <main class="page-shell">
+      <nav class="home-nav" aria-label="Navigazione principale"><a href="/" aria-label="Costo Vero, home">Costo Vero</a><a href="#categorie">Scegli cosa controllare</a></nav>
       <section class="hero home-hero">
         <p class="eyebrow">Quanto costa veramente?</p>
         <h1>Le grandi scelte iniziano dai <em>numeri.</em></h1>
@@ -53,12 +54,14 @@
         <p class="disclaimer">Stime trasparenti, senza account e senza preventivi inventati.</p>
       </section>
 
-      <section class="home-switcher" aria-label="Scegli cosa vuoi calcolare">
-        <p class="eyebrow">Scegli il tuo calcolo</p>
+      <section id="categorie" class="home-switcher" aria-label="Scegli cosa vuoi calcolare">
+        <p class="eyebrow">Da dove vuoi iniziare?</p>
+        <h2>Oggi vuoi capire il costo di…</h2>
+        <p class="category-intro">Scegli una categoria: puoi sempre tornare qui e cambiare percorso.</p>
         <div class="vertical-cards">
-          <a href="#auto"><span class="vertical-label">Auto</span><strong>Quanto costa davvero guidare?</strong><small>Rata, anticipo, maxi rata, carburante e costi di utilizzo.</small><b>Calcola il costo auto →</b></a>
-          <a href="/costo-mutuo"><span class="vertical-label">Casa</span><strong>Quanto costa davvero il mutuo?</strong><small>Rata, interessi, anticipo e spese iniziali inserite da te.</small><b>Calcola il costo del mutuo →</b></a>
-          <a href="/costo-bambino"><span class="vertical-label">Famiglia</span><strong>Quanto costa avere un bambino?</strong><small>Spese iniziali, mensili e una proiezione del primo anno.</small><b>Pianifica il costo del bambino →</b></a>
+          <a class="category-card auto-card" href="#auto"><span class="category-icon" aria-hidden="true">↗</span><span class="vertical-label">Auto</span><strong>Guidare, acquistare o noleggiare</strong><small>Rata, anticipo, maxi rata, carburante e costi di utilizzo.</small><b>Esplora auto <span aria-hidden="true">→</span></b></a>
+          <a class="category-card house-card" href="/costo-mutuo"><span class="category-icon" aria-hidden="true">⌂</span><span class="vertical-label">Casa</span><strong>Mutuo e acquisto della casa</strong><small>Rata, interessi, anticipo e spese iniziali.</small><b>Esplora casa <span aria-hidden="true">→</span></b></a>
+          <a class="category-card family-card" href="/costo-bambino"><span class="category-icon" aria-hidden="true">♡</span><span class="vertical-label">Famiglia</span><strong>Il budget per un bambino</strong><small>Spese iniziali, mensili e proiezione del primo anno.</small><b>Esplora famiglia <span aria-hidden="true">→</span></b></a>
         </div>
       </section>
       <span id="auto" class="anchor-target" aria-hidden="true"></span>
@@ -235,7 +238,7 @@
         </section>
       </article>
     </main>
-    <footer><span>© 2026 Costo Vero · Un aiuto per scegliere, non un preventivo.</span><nav aria-label="Informazioni"><a href="/guide-auto">Guide</a><a href="/chi-siamo">Chi siamo</a><a href="/come-calcoliamo-costo-auto">Metodo</a><a href="/privacy">Privacy</a></nav></footer>
+    <footer><span>© 2026 Costo Vero · Un aiuto per scegliere, non un preventivo.</span><nav aria-label="Informazioni"><a href="/#categorie">Cambia categoria</a><a href="/guide-auto">Guide</a><a href="/chi-siamo">Chi siamo</a><a href="/come-calcoliamo-costo-auto">Metodo</a><a href="/privacy">Privacy</a></nav></footer>
     <script src="app.js?v=20260831-2"></script>
   </body>
 </html>
