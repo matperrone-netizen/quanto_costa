@@ -70,7 +70,7 @@ def activity_counts(token, account_id):
     if result.get("errors"):
         raise RuntimeError(f"Cloudflare Analytics Engine: {result['errors']}")
     rows = result.get("data") or result.get("result") or []
-    counts = {"calculation": 0, "comparison": 0, "share": 0, "checklist": 0, "fuel_calculation": 0, "mortgage_calculation": 0}
+    counts = {"calculation": 0, "comparison": 0, "share": 0, "checklist": 0, "fuel_calculation": 0, "mortgage_calculation": 0, "child_cost_calculation": 0}
     for row in rows:
         if row.get("event") in counts:
             counts[row["event"]] = int(row.get("total") or 0)
@@ -124,6 +124,7 @@ def main():
 - Calcoli: {activities['calculation']}
 - Calcoli carburante: {activities['fuel_calculation']}
 - Calcoli mutuo: {activities['mortgage_calculation']}
+- Piani costo bambino: {activities['child_cost_calculation']}
 - Confronti: {activities['comparison']}
 - Condivisioni: {activities['share']}
 - Checklist copiate: {activities['checklist']}"""
