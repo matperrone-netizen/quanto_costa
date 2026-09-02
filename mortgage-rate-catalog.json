@@ -1,0 +1,40 @@
+{
+  "updatedAt": "2026-09-02",
+  "disclaimer": "Le condizioni sono esempi pubblici con requisiti specifici. La banca decide l'applicabilità e il TAEG resta il parametro da confrontare a parità di importo, durata e condizioni.",
+  "offers": [
+    {
+      "id": "credit-agricole-flexi-green-202609",
+      "bank": "Crédit Agricole",
+      "product": "Mutuo CA Flexi, acquisto online",
+      "tan": 2.9,
+      "taeg": 3.14,
+      "rateType": "fisso",
+      "minYears": 16,
+      "maxYears": 30,
+      "maxLtv": 80,
+      "energyClasses": ["A", "B"],
+      "conditions": "Acquisto, richiesta online, immobile in classe A o B, LTV massimo 80% e polizza CPI; verifica requisiti e disponibilità dell'offerta.",
+      "sourceName": "Crédit Agricole",
+      "sourceUrl": "https://www.credit-agricole.it/privati/mutui/acquisto",
+      "checkedAtISO": "2026-09-02",
+      "expiresAtISO": "2026-09-15"
+    },
+    {
+      "id": "intesa-xme-online-over80-202609",
+      "bank": "Intesa Sanpaolo",
+      "product": "XME Mutuo, offerta online",
+      "tan": 4.46,
+      "taeg": 4.78,
+      "rateType": "fisso",
+      "minYears": 25,
+      "maxYears": 25,
+      "maxLtv": 100,
+      "energyClasses": [],
+      "conditions": "Esempio pubblico per finanziamento oltre l'80% del valore dell'immobile; importo 150.000 euro, durata 25 anni. Condizioni soggette a verifica della banca.",
+      "sourceName": "Intesa Sanpaolo",
+      "sourceUrl": "https://www.intesasanpaolo.com/it/persone-e-famiglie/prodotti/mutui/xme-mutuo-offerta-online.html",
+      "checkedAtISO": "2026-09-02",
+      "expiresAtISO": "2026-09-30"
+    }
+  ]
+}

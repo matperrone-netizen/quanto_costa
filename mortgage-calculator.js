@@ -1,7 +1,9 @@
 const mortgageForm = document.getElementById('mortgageCalculator');
 
 function mortgageValue(id) {
-  return Math.max(0, Number(document.getElementById(id).value.replace(',', '.')) || 0);
+  const raw = document.getElementById(id).value.trim();
+  const normalized = raw.includes(',') ? raw.replace(/\./g, '').replace(',', '.') : raw.replace(/\./g, '');
+  return Math.max(0, Number(normalized) || 0);
 }
 
 function euro(value) {
@@ -39,4 +41,14 @@ function calculateMortgage(event) {
 
 mortgageForm.addEventListener('submit', calculateMortgage);
 mortgageForm.addEventListener('input', calculateMortgage);
+function formatMortgageThousands(input) {
+  const digits = input.value.replace(/\D/g, '');
+  input.value = digits ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+}
+['mortgageAmount', 'mortgageDownPayment', 'mortgageFees'].forEach(id => {
+  const input = document.getElementById(id);
+  input.addEventListener('input', () => formatMortgageThousands(input));
+  input.addEventListener('blur', () => formatMortgageThousands(input));
+  formatMortgageThousands(input);
+});
 calculateMortgage();
