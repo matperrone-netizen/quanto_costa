@@ -20,6 +20,8 @@ jobs:
       - name: Controlla le fonti
         id: catalog
         run: python .github/scripts/check_monthly_catalog.py
+      - name: Controlla il catalogo tassi mutuo
+        run: pwsh -File ./mortgage-rate-check.ps1
       - name: Salva il report
         uses: actions/upload-artifact@v4
         with:

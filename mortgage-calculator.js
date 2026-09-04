@@ -45,7 +45,7 @@ function formatMortgageThousands(input) {
   const digits = input.value.replace(/\D/g, '');
   input.value = digits ? digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
 }
-['mortgageAmount', 'mortgageDownPayment', 'mortgageFees'].forEach(id => {
+['mortgageAmount', 'mortgagePropertyValue', 'mortgageDownPayment', 'mortgageFees'].forEach(id => {
   const input = document.getElementById(id);
   input.addEventListener('input', () => formatMortgageThousands(input));
   input.addEventListener('blur', () => formatMortgageThousands(input));
