@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Calcola quanto costa davvero la tua auto: rata, anticipo, maxi rata, carburante e costi di utilizzo." />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#4f46e5" />
+    <link rel="canonical" href="https://costo-vero.it/costo-auto" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:site_name" content="Costo Vero" />
+    <meta property="og:title" content="Costo Vero | Le grandi scelte, con i numeri in chiaro" />
+    <meta property="og:description" content="Auto, mutuo e famiglia: confronta costi iniziali e impegno totale." />
+    <meta property="og:url" content="https://costo-vero.it/costo-auto" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Costo Vero | Le grandi scelte, con i numeri in chiaro" />
+    <meta name="twitter:description" content="Auto, mutuo e famiglia: confronta costi iniziali e impegno totale." />
+    <title>Costo vero dell'auto: rata, anticipo e costi | Costo Vero</title><meta property="og:image" content="https://costo-vero.it/assets/costo-vero-social.png" /><meta property="og:image:type" content="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" /><noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" /></noscript></noscript>
+    <link rel="stylesheet" href="styles.css?v=20260904-1" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "Costo Vero",
+            "url": "https://costo-vero.it/costo-auto",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "inLanguage": "it-IT",
+            "isAccessibleForFree": true,
+            "description": "Calcolatori gratuiti per mettere in chiaro il costo complessivo di auto, mutuo e famiglia."
+          },
+          { "@type": "WebSite", "@id": "https://costo-vero.it/#website", "name": "Costo Vero", "url": "https://costo-vero.it/costo-auto", "inLanguage": "it-IT", "publisher": { "@id": "https://costo-vero.it/#organization" } },
+          { "@type": "Organization", "@id": "https://costo-vero.it/#organization", "name": "Costo Vero", "url": "https://costo-vero.it/costo-auto", "description": "Progetto indipendente che aiuta a distinguere rata, costi iniziali e impegno complessivo nelle decisioni importanti." }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <nav class="article-nav" aria-label="Navigazione"><a href="/">← Home</a><a href="/#categorie">Cambia categoria</a></nav><header class="article-header auto-page-header"><p class="eyebrow">Costo vero dell'auto</p><h1>La rata è solo l'inizio.</h1><p class="article-lead">Inserisci la proposta e scopri quanto pesano anticipo, maxi rata e costi di guida.</p></header><span id="auto" class="anchor-target" aria-hidden="true"></span>
+      <section class="vertical-section-heading" aria-labelledby="auto-heading"><p class="eyebrow">Costo vero dell'auto</p><h2 id="auto-heading">La rata è solo l'inizio.</h2><p>Inserisci la proposta e scopri quali voci restano fuori dal preventivo.</p></section>
+      <form id="calculator" class="calculator" aria-label="Calcolatore costo auto">
+        <div class="step-heading">
+          <span class="step-number">1</span>
+          <div><h2>Che proposta hai ricevuto?</h2><p>Partiamo da quello che sai già. Ti bastano rata, durata e anticipo.</p></div>
+        </div>
+
+        <div class="choice-grid" role="radiogroup" aria-label="Tipo di proposta">
+          <label class="choice-card selected"><input type="radio" name="proposalType" value="finance" checked /><span>Acquisto o finanziamento</span><small>L'auto sarà tua</small></label>
+          <label class="choice-card"><input type="radio" name="proposalType" value="rental" /><span>Noleggio a lungo termine</span><small>Restituisci l'auto a fine contratto</small></label>
+        </div>
+
+        <div class="form-grid main-fields">
+          <label>Rata o canone mensile <span class="required">*</span><div class="input-wrap"><input id="monthlyPayment" type="number" min="0" value="299" inputmode="decimal" required /><span>€</span></div></label>
+          <label>Numero di rate mensili <span class="required">*</span><div class="input-wrap"><input id="duration" type="number" min="1" value="36" inputmode="numeric" required /><span>rate</span></div><small class="field-help">Es. “35 rate + maxi rata”.</small></label>
+          <label id="downPaymentLabel">Anticipo <div class="input-wrap"><input id="downPayment" type="text" value="4.500" inputmode="numeric" /><span>€</span></div><small class="field-help">Pagamento separato dalla rata.</small></label>
+          <label class="finance-only">Maxi rata finale <div class="input-wrap"><input id="finalPayment" type="text" value="0" inputmode="numeric" /><span>€</span></div><small class="field-help">Non entra nel costo mensile.</small></label>
+        </div>
+
+        <div class="step-heading second-step"><span class="step-number">2</span><div><h2>Come la useresti?</h2><p>Se non sai un dato, usa la stima proposta.</p></div></div>
+        <div class="form-grid">
+          <label class="full-width">Auto (facoltativo)<input id="carModel" type="text" placeholder="Es. Peugeot 2008" autocomplete="off" list="catalogModels" /><datalist id="catalogModels"></datalist></label>
+          <label>Chilometri all'anno <select id="annualKm"><option value="5000">5.000 km</option><option value="10000">10.000 km</option><option value="15000" selected>15.000 km</option><option value="20000">20.000 km</option><option value="25000">25.000 km</option><option value="30000">30.000 km</option><option value="40000">40.000 km</option><option value="50000">50.000 km</option></select></label>
+          <label>Alimentazione <select id="fuel"><option value="petrol">Benzina</option><option value="diesel">Diesel</option><option value="hybrid" selected>Ibrida</option><option value="electric">Elettrica</option></select></label>
+          <label>Tipo di auto <select id="segment"><option value="city">City car</option><option value="compact" selected>Utilitaria / compatta</option><option value="suv">SUV compatto</option><option value="large">SUV o auto grande</option></select></label>
+          <label>Parcheggio al mese <div class="input-wrap"><input id="parking" type="number" min="0" value="0" inputmode="decimal" /><span>€</span></div></label>
+        </div>
+
+        <fieldset id="includedCosts" class="rental-only hidden">
+          <legend>Cosa comprende il canone?</legend>
+          <label><input type="checkbox" value="insurance" checked /> Assicurazione</label>
+          <label><input type="checkbox" value="tax" checked /> Bollo</label>
+          <label><input type="checkbox" value="maintenance" checked /> Manutenzione</label>
+          <label><input type="checkbox" value="tires" /> Gomme</label>
+        </fieldset>
+        <fieldset id="endChoiceField" class="finance-only">
+          <legend>Alla fine del finanziamento cosa pensi di fare?</legend>
+          <label><input type="radio" name="endChoice" value="keep" /> Tenere e riscattare l'auto</label>
+          <label><input type="radio" name="endChoice" value="return" /> Restituirla o cambiarla</label>
+          <label><input type="radio" name="endChoice" value="undecided" checked /> Non lo so ancora</label>
+        </fieldset>
+
+        <section class="comparison-form" aria-label="Seconda offerta">
+          <div class="step-heading second-step"><span class="step-number">3</span><div><h2>Confronta una seconda offerta</h2><p>Usiamo lo stesso profilo d'uso dell'auto qui sopra.</p></div></div>
+          <label class="offer-b-toggle"><input id="hasOfferB" type="checkbox" /> Ho anche una seconda offerta</label>
+          <div id="offerBFields">
+          <div class="form-grid">
+            <label>Tipo di proposta <select id="proposalTypeB"><option value="rental" selected>Noleggio a lungo termine</option><option value="finance">Acquisto o finanziamento</option></select></label>
+            <label>Rata o canone mensile <div class="input-wrap"><input id="monthlyPaymentB" type="number" min="0" value="399" inputmode="decimal" /><span>€</span></div></label>
+            <label>Numero di rate mensili <div class="input-wrap"><input id="durationB" type="number" min="1" value="36" inputmode="numeric" /><span>rate</span></div></label>
+            <label id="downPaymentBLabel">Versamento iniziale <div class="input-wrap"><input id="downPaymentB" type="text" value="2.500" inputmode="numeric" /><span>€</span></div><small class="field-help">Separato dal canone mensile.</small></label>
+            <label id="finalPaymentBField" class="hidden">Maxi rata finale <div class="input-wrap"><input id="finalPaymentB" type="text" value="0" inputmode="numeric" /><span>€</span></div></label>
+          </div>
+          <fieldset id="includedCostsB">
+            <legend>Cosa comprende il canone della seconda offerta?</legend>
+            <label><input type="checkbox" value="insurance" checked /> Assicurazione</label>
+            <label><input type="checkbox" value="tax" checked /> Bollo</label>
+            <label><input type="checkbox" value="maintenance" checked /> Manutenzione</label>
+            <label><input type="checkbox" value="tires" checked /> Gomme</label>
+          </fieldset>
+          <fieldset id="endChoiceBField" class="hidden">
+            <legend>Alla fine del finanziamento cosa pensi di fare?</legend>
+            <label><input type="radio" name="endChoiceB" value="keep" /> Tenere e riscattare l'auto</label>
+            <label><input type="radio" name="endChoiceB" value="return" /> Restituirla o cambiarla</label>
+            <label><input type="radio" name="endChoiceB" value="undecided" checked /> Non lo so ancora</label>
+          </fieldset>
+          </div>
+          <label class="priority-label">Per te conta di più <select id="priority"><option value="monthly">Spendere meno ogni mese</option><option value="upfront">Versare meno subito</option><option value="total">Avere un esborso totale minore</option></select></label>
+          <p id="noOfferBMessage" class="no-offer-b hidden">Cercheremo nel catalogo statico un’alternativa verificata per il modello indicato. Se non la troviamo, non mostreremo un preventivo inventato.</p>
+        </section>
+
+        <p id="formError" class="form-error hidden" role="alert"></p>
+        <button id="calculate" type="submit">Scopri il costo reale <span aria-hidden="true">→</span></button>
+      </form>
+
+      <section id="results" class="results hidden" aria-live="polite">
+        <p class="eyebrow">La tua stima</p>
+        <h2>La rata di <span id="quotedPayment">€299</span> non racconta tutto.</h2>
+        <p class="real-cost">Costo mensile stimato <strong id="realMonthly">€0</strong><span>/mese</span></p>
+        <p id="resultExplanation" class="result-explanation"></p>
+        <div class="summary-grid">
+          <article><span>Costo mensile stimato di guida</span><strong id="monthlyDriving">€0</strong></article>
+          <article><span id="downPaymentResultLabel">Anticipo da versare oggi</span><strong id="downPaymentResult">€0</strong></article>
+          <article><span>Maxi rata alla scadenza</span><strong id="finalPaymentResult">€0</strong></article>
+        </div>
+        <article id="decisionNote" class="decision-note"></article>
+        <div id="quoteAlerts" class="quote-alerts hidden" aria-live="polite"></div>
+        <section id="comparisonResult" class="comparison-result">
+          <div class="comparison-heading"><p class="eyebrow">Confronto</p><h3>Quale proposta si adatta meglio alla tua priorità?</h3></div>
+          <div class="comparison-grid">
+            <button class="compare-card" type="button" data-offer="a"><span>Offerta A <b>Apri dettagli</b></span><strong id="compareA">€0/mese</strong><small id="compareADetail"></small></button>
+            <button class="compare-card" type="button" data-offer="b"><span id="compareBLabel">Offerta B <b>Apri dettagli</b></span><strong id="compareB">€0/mese</strong><small id="compareBDetail"></small></button>
+          </div>
+          <p id="catalogSource" class="catalog-source hidden"></p>
+          <p id="comparisonVerdict" class="comparison-verdict"></p>
+          <p id="comparisonTradeoff" class="comparison-tradeoff"></p>
+          <div id="offerDetails" class="offer-details hidden"></div>
+          <p class="comparison-note">Il confronto indica l'impegno di spesa, non il valore economico finale: nell'acquisto il valore residuo dell'auto può cambiare il risultato.</p>
+        </section>
+        <div id="mainBreakdown" class="breakdown">
+          <div class="breakdown-header"><h3>Dato del preventivo + costi stimati</h3><button id="toggleDetails" type="button">Rivedi i dati</button></div>
+          <div id="breakdownItems"></div>
+        </div>
+        <p id="fuelFormula" class="fuel-formula"></p>
+        <details class="assumptions-box">
+          <summary>Quali numeri sono certi e quali sono stimati?</summary>
+          <div id="assumptionDetails"></div>
+          <p>Le ipotesi standard servono solo a non ignorare costi reali che restano fuori dalla rata. Non sono un preventivo assicurativo, fiscale o di manutenzione.</p>
+          <a href="/come-calcoliamo-costo-auto">Metodo e limiti del calcolo →</a>
+        </details>
+        <button id="copyQuestions" class="checklist-result" type="button">Copia le domande da fare prima di firmare <span aria-hidden="true">✓</span></button>
+        <button id="shareResult" class="share-result" type="button">Condividi questa stima <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <article class="guide-content">
+        <p class="eyebrow">Prima di decidere</p>
+        <h2>La rata non è il costo dell’auto.</h2>
+        <p>Una proposta da €199 al mese può richiedere migliaia di euro subito, una maxi rata finale o costi di utilizzo che non compaiono nel preventivo. Questo strumento li mette nello stesso quadro, senza trasformare la scelta in un foglio Excel.</p>
+
+        <div class="guide-grid">
+          <section>
+            <h3>1. Leggi il preventivo</h3>
+            <p>Inserisci solo ciò che conosci: rata, numero di rate, anticipo e maxi rata.</p>
+          </section>
+          <section>
+            <h3>2. Stima l’utilizzo</h3>
+            <p>Km, alimentazione e categoria dell’auto permettono di stimare i costi che restano fuori dalla rata.</p>
+          </section>
+          <section>
+            <h3>3. Confronta la scelta</h3>
+            <p>Scopri quale offerta pesa meno ogni mese, richiede meno liquidità subito o comporta minori esborsi.</p>
+          </section>
+        </div>
+
+        <section class="trust-explainer" aria-label="Come lavora Costo Vero">
+          <h2>Ti aiutiamo a leggere i numeri, non a venderti un’auto.</h2>
+          <p>Il risultato non è un preventivo né una promessa: rende visibili le voci che spesso restano fuori dalla rata. Nel catalogo indichiamo sempre fonte e data di verifica; se non abbiamo un’alternativa verificata, non la inventiamo.</p>
+          <a href="/come-calcoliamo-costo-auto">Leggi come calcoliamo le stime →</a>
+        </section>
+
+        <p class="guide-link"><a href="/noleggio-o-finanziamento">Noleggio o finanziamento: cosa conviene davvero? <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/maxi-rata-finale">Maxi rata finale: come valutarla prima di firmare <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/quanto-costa-auto-al-mese">Quanto costa davvero un'auto al mese? <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/calcolo-costo-benzina">Calcola il costo della benzina per viaggio e chilometro <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/offerte-auto-noleggio">Offerte auto nel catalogo: confrontale oltre la rata <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/noleggio-auto-economico">Auto a noleggio economiche: cosa controllare oltre i 250 €/mese <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/km-extra-noleggio-auto">Km extra nel noleggio: il costo che la rata non mostra <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/rottamazione-sconto-auto">Sconti e rottamazione: come leggere il preventivo <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/noleggio-auto-senza-anticipo">Noleggio senza anticipo: quando la rata più alta ha senso <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/offerte-noleggio-auto-300-euro">Offerte fino a 300 € al mese: confronta le condizioni <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/noleggio-elettrica-o-ibrida">Noleggio elettrica o ibrida: scegli in base al tuo uso <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/noleggio-auto-elettriche">Noleggio auto elettriche: confronta rata, km e ricarica <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/noleggio-auto-ibride">Noleggio auto ibride: guarda prima i km inclusi <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/noleggio-suv">Noleggio SUV: confronta le condizioni, non solo il canone <span aria-hidden="true">→</span></a></p>
+        <p class="guide-link"><a href="/scegliere-alimentazione-auto">Elettrica, ibrida o diesel? Scegli in base ai tuoi tragitti <span aria-hidden="true">→</span></a></p>
+
+        <section class="faq" aria-label="Domande frequenti">
+          <h2>Domande frequenti</h2>
+          <details>
+            <summary>Il risultato è un preventivo?</summary>
+            <p>No. È una stima utile per confrontare offerte e rendere visibili le voci spesso escluse dalla rata. Prima di firmare, verifica sempre le condizioni del contratto.</p>
+          </details>
+          <details>
+            <summary>Perché anticipo e maxi rata non sono nel costo mensile?</summary>
+            <p>Perché sono impegni diversi: l’anticipo è denaro necessario subito, la maxi rata è una scelta o un pagamento alla scadenza. Separarli evita che una rata bassa nasconda il costo reale dell’offerta.</p>
+          </details>
+          <details>
+            <summary>Il noleggio include sempre assicurazione e manutenzione?</summary>
+            <p>No. Dipende dal contratto. Seleziona solo i servizi indicati nel preventivo e controlla franchigie, limiti di chilometraggio e condizioni di restituzione.</p>
+          </details>
+        </section>
+      </article>
+    </main>
+    <footer><span>© 2026 Costo Vero · Un aiuto per scegliere, non un preventivo.</span><nav aria-label="Informazioni"><a href="/#categorie">Cambia categoria</a><a href="/guide-auto">Guide</a><a href="/chi-siamo">Chi siamo</a><a href="/come-calcoliamo-costo-auto">Metodo</a><a href="/privacy">Privacy</a></nav></footer>
+    <script src="app.js?v=20260831-2"></script>
+  </body>
+</html>
