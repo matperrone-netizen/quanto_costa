@@ -35,6 +35,23 @@
       "sourceUrl": "https://www.intesasanpaolo.com/it/persone-e-famiglie/prodotti/mutui/xme-mutuo-offerta-online.html",
       "checkedAtISO": "2026-09-02",
       "expiresAtISO": "2026-09-30"
+    },
+    {
+      "id": "ing-mutuo-arancio-fixed-202609",
+      "bank": "ING",
+      "product": "Mutuo Arancio online, tasso fisso",
+      "tan": 4.33,
+      "taeg": 4.64,
+      "rateType": "fisso",
+      "minYears": 30,
+      "maxYears": 30,
+      "maxLtv": 50,
+      "energyClasses": ["A", "B"],
+      "conditions": "Acquisto immobile in classe A o B, durata 30 anni, finanziamento al 50% del valore, addebito su Conto Corrente Arancio e accredito di stipendio/pensione o entrate mensili di almeno 1.000 euro.",
+      "sourceName": "ING",
+      "sourceUrl": "https://www.ing.it/mutuo-arancio/mutuo-on-line.html?tc=ma-dart-def_search",
+      "checkedAtISO": "2026-09-04",
+      "expiresAtISO": "2026-09-15"
     }
   ]
 }
