@@ -36,6 +36,17 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\site-check.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\catalog-check.ps1
 ```
 
+La sitemap si rigenera automaticamente in `publish-seo.ps1`. Per aggiornare e verificare localmente prima della pubblicazione:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\update-sitemap.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\site-check.ps1
+```
+
+## Google Search Console
+
+Dopo il deploy, aggiungi la proprietà di dominio `costo-vero.it` in Google Search Console e invia `https://costo-vero.it/sitemap.xml`. Per la verifica con meta tag, inserisci il tag fornito da Google nel `<head>` di `index.html`, accanto agli altri meta tag: non aggiungere ID o codici inventati.
+
 ## Report quotidiano
 
 Il workflow `.github/workflows/daily-report.yml` invia alle 20:00 ora italiana un report delle metriche aggregate Cloudflare. I secret `GMAIL_APP_PASSWORD`, `CLOUDFLARE_ANALYTICS_TOKEN` e `CLOUDFLARE_ZONE_ID` vanno inseriti solo nella sezione GitHub Secrets: non devono mai finire nei file del repository.

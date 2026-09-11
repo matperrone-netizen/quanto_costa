@@ -3,16 +3,18 @@ $ErrorActionPreference = 'Stop'
 $sourceDir = $PSScriptRoot
 $domain = 'https://costo-vero.it'
 $issues = [System.Collections.Generic.List[string]]::new()
-$htmlFiles = @(Get-ChildItem -LiteralPath $sourceDir -Filter '*.html' -File)
-$indexableFiles = @($htmlFiles | Where-Object Name -ne '404.html')
+$htmlFiles = @(Get-ChildItem -LiteralPath $sourceDir -Filter '*.html' -File -Recurse | Where-Object { $_.FullName -notmatch '[\\/]\.publish-seo-' })
+$indexableFiles = @($htmlFiles | Where-Object { $_.Name -ne '404.html' -and [IO.File]::ReadAllText($_.FullName) -notmatch '<meta\s+name="robots"\s+content="[^"]*noindex' })
 
 function Add-Issue([string]$message) {
   $script:issues.Add($message)
 }
 
 function Expected-Url([IO.FileInfo]$file) {
-  if ($file.Name -eq 'index.html') { return $domain }
-  return "$domain/$($file.BaseName)"
+  $relative = $file.FullName.Substring($sourceDir.Length).TrimStart('\', '/') -replace '\\', '/'
+  if ($relative -eq 'index.html') { return $domain }
+  if ($relative -match '^(.*)/index\.html$') { return "$domain/$($Matches[1])/" }
+  return "$domain/$($relative.Substring(0, $relative.Length - '.html'.Length))"
 }
 
 foreach ($file in $htmlFiles) {
@@ -26,7 +28,7 @@ foreach ($file in $htmlFiles) {
     if ($content -notmatch '<meta\s+name="robots"\s+content="noindex,follow"') {
       Add-Issue '404.html: manca robots noindex,follow'
     }
-  } else {
+  } elseif ($content -notmatch '<meta\s+name="robots"\s+content="[^"]*noindex') {
     $descriptionCount = [regex]::Matches($content, '<meta\s+name="description"\s+content="[^"]+"', 'IgnoreCase').Count
     $canonicalTags = @([regex]::Matches($content, '<link\b[^>]*\brel="canonical"[^>]*>', 'IgnoreCase'))
     if ($descriptionCount -ne 1) { Add-Issue "$($file.Name): trovate $descriptionCount meta description" }

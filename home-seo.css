@@ -1,0 +1,3 @@
+.home-seo { max-width:650px; margin:58px 0 0; padding-top:38px; border-top:1px solid var(--line); }
+.home-seo h2 { margin-bottom:14px; font-size:clamp(1.55rem,4vw,2.15rem); }
+.home-seo p { color:var(--muted); line-height:1.65; }

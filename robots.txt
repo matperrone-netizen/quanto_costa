@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /functions/
 
 Sitemap: https://costo-vero.it/sitemap.xml
