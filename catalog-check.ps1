@@ -2,13 +2,12 @@ $ErrorActionPreference = 'Stop'
 
 $catalogPath = Join-Path $PSScriptRoot 'offers.json'
 $catalog = Get-Content -Raw -LiteralPath $catalogPath | ConvertFrom-Json
-$offers = if ($catalog.offers) { @($catalog.offers) } else { @($catalog) }
+$offers = if ($null -ne $catalog.PSObject.Properties['offers']) { @($catalog.offers | Where-Object { $null -ne $_ }) } else { @($catalog) }
 $requiredFields = @('id', 'brand', 'model', 'aliases', 'match', 'title', 'type', 'payment', 'months', 'downPayment', 'finalPayment', 'contractKm', 'included', 'profile', 'sourceName', 'sourceUrl', 'checkedAtISO', 'checkedAt', 'conditions')
 $errors = [System.Collections.Generic.List[string]]::new()
-$warnings = [System.Collections.Generic.List[string]]::new()
 $seenIds = [System.Collections.Generic.HashSet[string]]::new()
 
-if (@($offers).Count -eq 0) { $errors.Add('Il catalogo non contiene offerte.') }
+if (@($offers).Count -eq 0 -and $catalog.availability -ne 'refresh_in_progress') { $errors.Add('Il catalogo non contiene offerte.') }
 
 foreach ($offer in @($offers)) {
   $name = if ($offer.title) { $offer.title } else { '(offerta senza titolo)' }
@@ -27,15 +26,10 @@ foreach ($offer in @($offers)) {
   if ($offer.sourceUrl -and $offer.sourceUrl -notmatch '^https://') { $errors.Add("${name}: sourceUrl deve iniziare con https://.") }
   try {
     $checked = [datetime]::ParseExact($offer.checkedAtISO, 'yyyy-MM-dd', [cultureinfo]::InvariantCulture)
-    if (((Get-Date) - $checked).Days -gt 45) { $warnings.Add("${name}: verifica più vecchia di 45 giorni ($($offer.checkedAt)).") }
+    if (((Get-Date) - $checked).Days -gt 35) { $errors.Add("${name}: verifica piu vecchia di 35 giorni ($($offer.checkedAt)).") }
   } catch {
     $errors.Add("${name}: checkedAtISO deve essere nel formato yyyy-MM-dd.")
   }
-}
-
-if ($warnings.Count) {
-  Write-Host 'Avvisi catalogo:' -ForegroundColor Yellow
-  $warnings | ForEach-Object { Write-Host "- $_" -ForegroundColor Yellow }
 }
 if ($errors.Count) {
   Write-Host 'Errori catalogo:' -ForegroundColor Red
@@ -43,4 +37,8 @@ if ($errors.Count) {
   exit 1
 }
 
-Write-Host "Catalogo valido: $(@($offers).Count) offerta/e controllata/e." -ForegroundColor Green
+if (@($offers).Count -eq 0) {
+  Write-Host 'Catalogo temporaneamente sospeso per aggiornamento fonti.' -ForegroundColor Yellow
+} else {
+  Write-Host "Catalogo valido: $(@($offers).Count) offerta/e controllata/e." -ForegroundColor Green
+}
