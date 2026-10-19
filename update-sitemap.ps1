@@ -20,5 +20,11 @@ $urls = foreach ($file in $htmlFiles) {
 }
 
 $xml = "<?xml version=`"1.0`" encoding=`"UTF-8`"?>`n<urlset xmlns=`"http://www.sitemaps.org/schemas/sitemap/0.9`">`n" + ($urls -join "`n") + "`n</urlset>`n"
-[IO.File]::WriteAllText((Join-Path $sourceDir 'sitemap.xml'), $xml, [Text.UTF8Encoding]::new($false))
-Write-Host "Sitemap aggiornata: $($htmlFiles.Count) pagine pubbliche." -ForegroundColor Green
+$sitemapPath = Join-Path $sourceDir 'sitemap.xml'
+$existing = if (Test-Path -LiteralPath $sitemapPath) { [IO.File]::ReadAllText($sitemapPath) } else { '' }
+if ($existing -cne $xml) {
+  [IO.File]::WriteAllText($sitemapPath, $xml, [Text.UTF8Encoding]::new($false))
+  Write-Host "Sitemap aggiornata: $($htmlFiles.Count) pagine pubbliche." -ForegroundColor Green
+} else {
+  Write-Host 'Sitemap invariata: nessuna pagina pubblica modificata.' -ForegroundColor DarkGray
+}
