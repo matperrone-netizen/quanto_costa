@@ -98,7 +98,7 @@ let staticOffers = [];
 let offersPromise = null;
 function loadOffers() {
   if (offersPromise) return offersPromise;
-  offersPromise = fetch('offers.json?v=20260831-1')
+  offersPromise = fetch('offers.json?v=20261019-1')
     .then(response => response.ok ? response.json() : [])
     .then(catalog => {
       staticOffers = Array.isArray(catalog) ? catalog : (Array.isArray(catalog.offers) ? catalog.offers : []);
